@@ -1,8 +1,10 @@
 
 package br.edu.ifsp.pep.modelo;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,9 @@ public class Medico extends Pessoa{
     
     @Column(name = "senha", length = 45, nullable = false)
     private String senha;
+    
+    @OneToMany(mappedBy = "medicoCpf")
+    private List<Consulta> consultas;
 
     public String getCrm() {
         return crm;
@@ -52,4 +57,13 @@ public class Medico extends Pessoa{
     public void setSenha(String senha) {
         this.senha = senha;
     }   
+
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
 }

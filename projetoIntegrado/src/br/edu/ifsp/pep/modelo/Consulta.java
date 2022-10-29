@@ -3,11 +3,15 @@ package br.edu.ifsp.pep.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -17,7 +21,7 @@ import javax.persistence.Temporal;
 public class Consulta implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idConsulta")
+    @Column(name = "id_consulta")
     private long idConsulta;
     
     @Column(name = "dia", nullable = false)
@@ -33,8 +37,20 @@ public class Consulta implements Serializable{
     @Column(name = "status", nullable = false)
     private boolean status;
     
-//chave estrangeira do cliente e médico
-//lista dos remédios
+    @ManyToOne
+    @JoinColumn(name = "cliente_cpf")
+    private Cliente clienteCpf;
+    
+    @ManyToOne
+    @JoinColumn(name = "medico_cpf")
+    private Medico medicoCpf;
+    
+    @OneToMany(mappedBy = "idConsulta")
+    private List<Exame> exames;
+    
+    @OneToMany(mappedBy = "idConsulta")
+    private List<Remedio> remedios;
+
     public Consulta() {
     }
 
@@ -75,4 +91,37 @@ public class Consulta implements Serializable{
     public void setStatus(boolean status) {
         this.status = status;
     }    
+
+    public Cliente getClienteCpf() {
+        return clienteCpf;
+    }
+
+    public void setClienteCpf(Cliente clienteCpf) {
+        this.clienteCpf = clienteCpf;
+    }
+
+    public Medico getMedicoCpf() {
+        return medicoCpf;
+    }
+
+    public void setMedicoCpf(Medico medicoCpf) {
+        this.medicoCpf = medicoCpf;
+    }
+
+    public List<Exame> getExames() {
+        return exames;
+    }
+
+    public void setExames(List<Exame> exames) {
+        this.exames = exames;
+    }
+
+    public List<Remedio> getRemedios() {
+        return remedios;
+    }
+
+    public void setRemedios(List<Remedio> remedios) {
+        this.remedios = remedios;
+    }
+    
 }

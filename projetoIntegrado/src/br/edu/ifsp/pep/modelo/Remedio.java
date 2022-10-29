@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,7 +42,9 @@ public class Remedio implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;    
     
-    //colocar a chave estrangeria da consulta
+    @ManyToOne
+    @JoinColumn(name = "id_consulta")
+    private Consulta idConsulta;
     
     public Remedio() {
     }
@@ -84,4 +88,13 @@ public class Remedio implements Serializable {
     public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
     }   
+
+    public Consulta getIdConsulta() {
+        return idConsulta;
+    }
+
+    public void setIdConsulta(Consulta idConsulta) {
+        this.idConsulta = idConsulta;
+    }
+   
 }

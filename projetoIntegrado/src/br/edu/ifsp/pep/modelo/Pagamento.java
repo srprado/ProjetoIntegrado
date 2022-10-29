@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -38,7 +40,9 @@ public class Pagamento implements Serializable{
     @Column(name = "status", nullable = false)
     private boolean status;
     
-    //chave estrangeira cliente
+    @ManyToOne
+    @JoinColumn(name = "cliente_cpf")
+    private Cliente clienteCpf;
 
     public Pagamento() {
     }
@@ -89,6 +93,14 @@ public class Pagamento implements Serializable{
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Cliente getClienteCpf() {
+        return clienteCpf;
+    }
+
+    public void setClienteCpf(Cliente clienteCpf) {
+        this.clienteCpf = clienteCpf;
     }
 
 }

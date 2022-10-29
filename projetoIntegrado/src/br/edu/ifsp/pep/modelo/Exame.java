@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -25,7 +27,9 @@ public class Exame implements Serializable{
     @Column(name = "tipo_exame", length = 45, nullable = false)
     private String tipoExame;
     
-    //acrescentar chave estrangeira da consulta
+    @ManyToOne
+    @JoinColumn(name = "id_consulta")
+    private Consulta idConsulta;
     
     public Exame() {
     }
@@ -53,4 +57,13 @@ public class Exame implements Serializable{
     public void setTipoExame(String tipoExame) {
         this.tipoExame = tipoExame;
     }   
+
+    public Consulta getIdConsulta() {
+        return idConsulta;
+    }
+
+    public void setIdConsulta(Consulta idConsulta) {
+        this.idConsulta = idConsulta;
+    }
+
 }
