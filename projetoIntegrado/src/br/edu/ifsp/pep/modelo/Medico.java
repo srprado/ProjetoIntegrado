@@ -57,8 +57,7 @@ public class Medico implements Serializable {
     private String loginNome;
    
     @Column(name = "login_senha", length = 45, nullable = false)
-    private String loginSenha;
-    
+    private String loginSenha;    
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicoCpf")
     private Collection<Consulta> consultaCollection;

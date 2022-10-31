@@ -52,8 +52,8 @@ public class Cliente implements Serializable {
     @Column(name = "status", nullable = false)
     private boolean status;    
     
-    @JoinColumn(name = "plano_medico_idplano_medico", referencedColumnName = "idplano_medico")        
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "idplano_medico", referencedColumnName = "idplano_medico", nullable = false)        
+    @ManyToOne
     private PlanoMedico planoMedico;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteCpf")

@@ -38,7 +38,7 @@ public class Remedio implements Serializable {
     private String posologia;
     
     @JoinColumn(name = "consulta_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Consulta consultaId;
 
     public Remedio() {

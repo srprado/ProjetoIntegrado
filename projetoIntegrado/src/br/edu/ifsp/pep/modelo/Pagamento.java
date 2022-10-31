@@ -46,8 +46,8 @@ public class Pagamento implements Serializable {
     @Column(name = "status", nullable = false)
     private boolean status;
     
-    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf", nullable = false)
+    @ManyToOne
     private Cliente clienteCpf;
 
     public Pagamento() {

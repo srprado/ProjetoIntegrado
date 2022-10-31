@@ -7,6 +7,7 @@ import br.edu.ifsp.pep.modelo.Cliente;
 import br.edu.ifsp.pep.modelo.PlanoMedico;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -21,12 +22,13 @@ public class Principal {
     public static void main(String[] args){        
    
         inserirPlano(); 
+        inserirCliente();
     }
     
     private static void inserirPlano(){
         PlanoMedico solo = new PlanoMedico();
         solo.setTipo("Solo");
-        solo.setValorMensal(new BigDecimal(15000));        
+        solo.setValorMensal(new BigDecimal(150));        
         
         try {
             planoDAO.inserir(solo);
@@ -44,8 +46,7 @@ public class Principal {
         cliente.setTelefone("(18)98199-9999");
         cliente.setEmail("sabrinaprado@gmail.com");
         cliente.setEndereco("Rua das flores");
-        cliente.setStatus(true);
-        
+        cliente.setStatus(true);       
        
         try {
             clienteDAO.inserir(cliente);

@@ -33,7 +33,7 @@ public class Exame implements Serializable {
     private String tipoExame;
     
     @JoinColumn(name = "consulta_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Consulta consultaId;
 
     public Exame() {

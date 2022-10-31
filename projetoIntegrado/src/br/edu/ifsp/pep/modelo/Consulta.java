@@ -50,12 +50,12 @@ public class Consulta implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaId")
     private Collection<Exame> exameCollection;
     
-    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf", nullable = false)
+    @ManyToOne
     private Cliente clienteCpf;
     
-    @JoinColumn(name = "medico_cpf", referencedColumnName = "cpf")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "medico_cpf", referencedColumnName = "cpf", nullable = false)
+    @ManyToOne
     private Medico medicoCpf;
 
     public Consulta() {
