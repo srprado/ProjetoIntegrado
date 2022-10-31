@@ -3,6 +3,7 @@ package br.edu.ifsp.pep.dao;
 
 import br.edu.ifsp.pep.modelo.PlanoMedico;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 public class PlanoMedicoDAO extends AbstractDAO<PlanoMedico>{

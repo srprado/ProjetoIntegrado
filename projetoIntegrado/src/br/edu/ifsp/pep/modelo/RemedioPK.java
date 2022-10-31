@@ -1,14 +1,34 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.edu.ifsp.pep.modelo;
 
 import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+/**
+ *
+ * @author sabri
+ */
+@Embeddable
+public class RemedioPK implements Serializable {
 
-public class RemedioPK  implements Serializable{
-    
+   
+    @Column(name = "nome", length = 45, nullable = false)
     private String nome;
+    
+    @Column(name = "miligrama", length = 45, nullable = false)
     private String miligrama;
+
+    public RemedioPK() {
+    }
+
+    public RemedioPK(String nome, String miligrama) {
+        this.nome = nome;
+        this.miligrama = miligrama;
+    }
 
     public String getNome() {
         return nome;
@@ -28,27 +48,31 @@ public class RemedioPK  implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.nome);
-        hash = 37 * hash + Objects.hashCode(this.miligrama);
+        int hash = 0;
+        hash += (nome != null ? nome.hashCode() : 0);
+        hash += (miligrama != null ? miligrama.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof RemedioPK)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        RemedioPK other = (RemedioPK) object;
+        if ((this.nome == null && other.nome != null) || (this.nome != null && !this.nome.equals(other.nome))) {
             return false;
         }
-        final RemedioPK other = (RemedioPK) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
+        if ((this.miligrama == null && other.miligrama != null) || (this.miligrama != null && !this.miligrama.equals(other.miligrama))) {
             return false;
         }
-        return Objects.equals(this.miligrama, other.miligrama);
-    }   
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ifsp.pep.modelo.RemedioPK[ nome=" + nome + ", miligrama=" + miligrama + " ]";
+    }
+    
 }

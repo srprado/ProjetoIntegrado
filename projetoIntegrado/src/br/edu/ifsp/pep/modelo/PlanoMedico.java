@@ -3,57 +3,109 @@ package br.edu.ifsp.pep.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "plano_medico")
-public class PlanoMedico implements Serializable{
-    
+@NamedQueries({
+    @NamedQuery(name = "PlanoMedico.findAll", query = "SELECT p FROM PlanoMedico p"),
+    @NamedQuery(name = "PlanoMedico.findByTipo", query = "SELECT p FROM PlanoMedico p WHERE p.tipo = :tipo")
+})
+public class PlanoMedico implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPlano_medico")
-    private long idPlanoMedico;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
+    @Column(name = "idplano_medico")
+    private Integer idplanoMedico;
     
-    @Column(name = "tipo_plano", length = 45, nullable = false)
-    private String tipoPlano;
+    @Column(name = "tipo", length = 45, nullable = false)
+    private String tipo;
     
-    @Column(name = "valor", precision = 6, scale = 2, nullable = false)
-    private BigDecimal valor;
+    @Column(name = "valor_mensal", precision = 8, scale = 2, nullable = false)
+    private BigDecimal valorMensal;
     
-    @OneToMany(mappedBy = "planoMedico")
-    private List<Cliente> clientes;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planoMedico")
+    private Collection<Cliente> clienteCollection;
 
     public PlanoMedico() {
     }
 
-    public long getIdPlanoMedico() {
-        return idPlanoMedico;
+    public PlanoMedico(Integer idplanoMedico) {
+        this.idplanoMedico = idplanoMedico;
     }
 
-    public void setIdPlanoMedico(long idPlanoMedico) {
-        this.idPlanoMedico = idPlanoMedico;
+    public PlanoMedico(Integer idplanoMedico, String tipo, BigDecimal valorMensal) {
+        this.idplanoMedico = idplanoMedico;
+        this.tipo = tipo;
+        this.valorMensal = valorMensal;
     }
 
-    public String getTipoPlano() {
-        return tipoPlano;
+    public Integer getIdplanoMedico() {
+        return idplanoMedico;
     }
 
-    public void setTipoPlano(String tipoPlano) {
-        this.tipoPlano = tipoPlano;
+    public void setIdplanoMedico(Integer idplanoMedico) {
+        this.idplanoMedico = idplanoMedico;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }    
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public BigDecimal getValorMensal() {
+        return valorMensal;
+    }
+
+    public void setValorMensal(BigDecimal valorMensal) {
+        this.valorMensal = valorMensal;
+    }
+
+    public Collection<Cliente> getClienteCollection() {
+        return clienteCollection;
+    }
+
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+        this.clienteCollection = clienteCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idplanoMedico != null ? idplanoMedico.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof PlanoMedico)) {
+            return false;
+        }
+        PlanoMedico other = (PlanoMedico) object;
+        if ((this.idplanoMedico == null && other.idplanoMedico != null) || (this.idplanoMedico != null && !this.idplanoMedico.equals(other.idplanoMedico))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ifsp.pep.modelo.PlanoMedico[ idplanoMedico=" + idplanoMedico + " ]";
+    }
+    
 }

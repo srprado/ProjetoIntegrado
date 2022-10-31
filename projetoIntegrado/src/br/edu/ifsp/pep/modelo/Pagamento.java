@@ -11,48 +11,64 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "pagamento")
-public class Pagamento implements Serializable{
-    
+@NamedQueries({
+    @NamedQuery(name = "Pagamento.findAll", query = "SELECT p FROM Pagamento p"),
+})
+public class Pagamento implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
     @Column(name = "idpagamento")
-    private long idPagamento;
+    private Integer idpagamento;
     
-    @Column(name = "data_vencimento", nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "data_vencimento")
+    @Temporal(TemporalType.DATE)    
     private Date dataVencimento;
     
-    @Column(name = "data_pagamento", nullable = true)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "data_pagamento")    
+    @Temporal(TemporalType.DATE)
     private Date dataPagamento;
     
-    @Column(name = "valor_pago", precision = 6, scale = 2, nullable = true)
+    @Column(name = "valor_pago", precision = 8, scale = 2, nullable = false )
     private BigDecimal valorPago;
     
-    @Column(name = "motivo_cancelamento", length = 45, nullable = true)
+    @Column(name = "motivo_cancelamento", length = 60, nullable = false)
     private String motivoCancelamento;
     
     @Column(name = "status", nullable = false)
     private boolean status;
     
-    @ManyToOne
-    @JoinColumn(name = "cliente_cpf")
+    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf")
+    @ManyToOne(optional = false)
     private Cliente clienteCpf;
 
     public Pagamento() {
     }
 
-    public long getIdPagamento() {
-        return idPagamento;
+    public Pagamento(Integer idpagamento) {
+        this.idpagamento = idpagamento;
     }
 
-    public void setIdPagamento(long idPagamento) {
-        this.idPagamento = idPagamento;
+    public Pagamento(Integer idpagamento, Date dataVencimento, boolean status) {
+        this.idpagamento = idpagamento;
+        this.dataVencimento = dataVencimento;
+        this.status = status;
+    }
+
+    public Integer getIdpagamento() {
+        return idpagamento;
+    }
+
+    public void setIdpagamento(Integer idpagamento) {
+        this.idpagamento = idpagamento;
     }
 
     public Date getDataVencimento() {
@@ -78,7 +94,7 @@ public class Pagamento implements Serializable{
     public void setValorPago(BigDecimal valorPago) {
         this.valorPago = valorPago;
     }
-
+    
     public String getMotivoCancelamento() {
         return motivoCancelamento;
     }
@@ -87,7 +103,7 @@ public class Pagamento implements Serializable{
         this.motivoCancelamento = motivoCancelamento;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -103,4 +119,29 @@ public class Pagamento implements Serializable{
         this.clienteCpf = clienteCpf;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idpagamento != null ? idpagamento.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Pagamento)) {
+            return false;
+        }
+        Pagamento other = (Pagamento) object;
+        if ((this.idpagamento == null && other.idpagamento != null) || (this.idpagamento != null && !this.idpagamento.equals(other.idpagamento))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ifsp.pep.modelo.Pagamento[ idpagamento=" + idpagamento + " ]";
+    }
+    
 }
