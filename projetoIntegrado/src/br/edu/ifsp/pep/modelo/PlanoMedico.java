@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "plano_medico")
 @NamedQueries({
     @NamedQuery(name = "PlanoMedico.findAll", query = "SELECT p FROM PlanoMedico p"),
-    @NamedQuery(name = "PlanoMedico.findByTipo", query = "SELECT p FROM PlanoMedico p WHERE p.tipo = :tipo")
+    @NamedQuery(name = "PlanoMedico.findByTipo", query = "SELECT p FROM PlanoMedico p WHERE p.tipoPlano = :tipoPlano")
 })
 public class PlanoMedico implements Serializable {
 
@@ -27,10 +27,10 @@ public class PlanoMedico implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   
     @Column(name = "idplano_medico")
-    private Integer idplanoMedico;
+    private long idplanoMedico;
     
-    @Column(name = "tipo", length = 45, nullable = false)
-    private String tipo;
+    @Column(name = "tipo_plano", length = 45, nullable = false)
+    private String tipoPlano;
     
     @Column(name = "valor_mensal", precision = 8, scale = 2, nullable = false)
     private BigDecimal valorMensal;
@@ -41,31 +41,31 @@ public class PlanoMedico implements Serializable {
     public PlanoMedico() {
     }
 
-    public PlanoMedico(Integer idplanoMedico) {
+    public PlanoMedico(long idplanoMedico) {
         this.idplanoMedico = idplanoMedico;
-    }
+    }    
 
-    public PlanoMedico(Integer idplanoMedico, String tipo, BigDecimal valorMensal) {
+    public PlanoMedico(long idplanoMedico, String tipoPlano, BigDecimal valorMensal) {
         this.idplanoMedico = idplanoMedico;
-        this.tipo = tipo;
+        this.tipoPlano = tipoPlano;
         this.valorMensal = valorMensal;
     }
 
-    public Integer getIdplanoMedico() {
+    public long getIdplanoMedico() {
         return idplanoMedico;
     }
 
-    public void setIdplanoMedico(Integer idplanoMedico) {
+    public void setIdplanoMedico(long idplanoMedico) {
         this.idplanoMedico = idplanoMedico;
+    }   
+
+    public String getTipoPlano() {
+        return tipoPlano;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    public void setTipoPlano(String tipoPlano) {
+        this.tipoPlano = tipoPlano;
+    }   
 
     public BigDecimal getValorMensal() {
         return valorMensal;
@@ -85,27 +85,23 @@ public class PlanoMedico implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idplanoMedico != null ? idplanoMedico.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + (int) (this.idplanoMedico ^ (this.idplanoMedico >>> 32));
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PlanoMedico)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        PlanoMedico other = (PlanoMedico) object;
-        if ((this.idplanoMedico == null && other.idplanoMedico != null) || (this.idplanoMedico != null && !this.idplanoMedico.equals(other.idplanoMedico))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "br.edu.ifsp.pep.modelo.PlanoMedico[ idplanoMedico=" + idplanoMedico + " ]";
-    }
-    
+        final PlanoMedico other = (PlanoMedico) obj;
+        return this.idplanoMedico == other.idplanoMedico;
+    }    
 }

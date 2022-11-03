@@ -4,6 +4,7 @@ import br.edu.ifsp.pep.dao.MedicoDAO;
 import br.edu.ifsp.pep.dao.PlanoMedicoDAO;
 import br.edu.ifsp.pep.dao.SecretariadoDAO;
 import br.edu.ifsp.pep.modelo.Cliente;
+import br.edu.ifsp.pep.modelo.Medico;
 import br.edu.ifsp.pep.modelo.PlanoMedico;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,12 +23,12 @@ public class Principal {
     public static void main(String[] args){        
    
         inserirPlano(); 
-        inserirCliente();
+//        inserirCliente();
     }
     
     private static void inserirPlano(){
         PlanoMedico solo = new PlanoMedico();
-        solo.setTipo("Solo");
+        solo.setTipoPlano("Solo");
         solo.setValorMensal(new BigDecimal(150));        
         
         try {
@@ -55,16 +56,15 @@ public class Principal {
         }    
     }
     
-    
-    
-        
-        
-        
-        //Fazer o DAO das classes
-//        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-//        funcionarioDAO.inserir(f1);
-    
-    
-    
+    private static void inserirMedico(){
+        Medico medico = new Medico();
+        medico.setCpf("234.456.678-89");
+       
+        try {
+            medicoDAO.inserir(medico);
+        } catch (Exception ex) {
+            System.out.println("Erro ao inserir médico!");
+        }    
+    }
     
 }

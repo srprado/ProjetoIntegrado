@@ -37,9 +37,9 @@ public class Remedio implements Serializable {
     @Column(name = "posologia", length = 45, nullable = false)
     private String posologia;
     
-    @JoinColumn(name = "consulta_id", referencedColumnName = "id")
+    @JoinColumn(name = "consulta_id", referencedColumnName = "idConsulta")
     @ManyToOne
-    private Consulta consultaId;
+    private Consulta idConsulta;
 
     public Remedio() {
     }
@@ -76,13 +76,13 @@ public class Remedio implements Serializable {
         this.posologia = posologia;
     }
 
-    public Consulta getConsultaId() {
-        return consultaId;
+    public Consulta getIdConsulta() {
+        return idConsulta;
     }
 
-    public void setConsultaId(Consulta consultaId) {
-        this.consultaId = consultaId;
-    }
+    public void setIdConsulta(Consulta idConsulta) {
+        this.idConsulta = idConsulta;
+    }    
 
     @Override
     public int hashCode() {

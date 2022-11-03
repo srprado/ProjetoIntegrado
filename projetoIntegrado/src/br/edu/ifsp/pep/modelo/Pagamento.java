@@ -27,7 +27,7 @@ public class Pagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     @Column(name = "idpagamento")
-    private Integer idpagamento;
+    private long idpagamento;
     
     @Column(name = "data_vencimento")
     @Temporal(TemporalType.DATE)    
@@ -53,21 +53,21 @@ public class Pagamento implements Serializable {
     public Pagamento() {
     }
 
-    public Pagamento(Integer idpagamento) {
+    public Pagamento(long idpagamento) {
         this.idpagamento = idpagamento;
     }
 
-    public Pagamento(Integer idpagamento, Date dataVencimento, boolean status) {
+    public Pagamento(long idpagamento, Date dataVencimento, boolean status) {
         this.idpagamento = idpagamento;
         this.dataVencimento = dataVencimento;
         this.status = status;
     }
 
-    public Integer getIdpagamento() {
+    public long getIdpagamento() {
         return idpagamento;
     }
 
-    public void setIdpagamento(Integer idpagamento) {
+    public void setIdpagamento(long idpagamento) {
         this.idpagamento = idpagamento;
     }
 
@@ -121,27 +121,23 @@ public class Pagamento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idpagamento != null ? idpagamento.hashCode() : 0);
+        int hash = 7;
+        hash = 29 * hash + (int) (this.idpagamento ^ (this.idpagamento >>> 32));
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pagamento)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Pagamento other = (Pagamento) object;
-        if ((this.idpagamento == null && other.idpagamento != null) || (this.idpagamento != null && !this.idpagamento.equals(other.idpagamento))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "br.edu.ifsp.pep.modelo.Pagamento[ idpagamento=" + idpagamento + " ]";
-    }
-    
+        final Pagamento other = (Pagamento) obj;
+        return this.idpagamento == other.idpagamento;
+    }    
 }

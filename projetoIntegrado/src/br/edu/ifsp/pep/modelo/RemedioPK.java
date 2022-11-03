@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifsp.pep.modelo;
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-/**
- *
- * @author sabri
- */
 @Embeddable
 public class RemedioPK implements Serializable {
-
    
     @Column(name = "nome", length = 45, nullable = false)
     private String nome;

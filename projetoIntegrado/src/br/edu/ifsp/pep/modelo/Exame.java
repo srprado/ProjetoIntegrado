@@ -24,7 +24,7 @@ public class Exame implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "idexame")
-    private Integer idexame;
+    private long idexame;
     
     @Column(name = "nome", length = 45, nullable = false)
     private String nome;
@@ -32,9 +32,9 @@ public class Exame implements Serializable {
     @Column(name = "tipo_exame", length = 45, nullable = false)
     private String tipoExame;
     
-    @JoinColumn(name = "consulta_id", referencedColumnName = "id")
+    @JoinColumn(name = "consulta_id", referencedColumnName = "idConsulta")
     @ManyToOne
-    private Consulta consultaId;
+    private Consulta idConsulta;
 
     public Exame() {
     }
@@ -45,13 +45,13 @@ public class Exame implements Serializable {
         this.tipoExame = tipoExame;
     }
 
-    public Integer getIdexame() {
+    public long getIdexame() {
         return idexame;
     }
 
-    public void setIdexame(Integer idexame) {
+    public void setIdexame(long idexame) {
         this.idexame = idexame;
-    }
+    }   
 
     public String getNome() {
         return nome;
@@ -69,37 +69,35 @@ public class Exame implements Serializable {
         this.tipoExame = tipoExame;
     }
 
-    public Consulta getConsultaId() {
-        return consultaId;
+    public Consulta getIdConsulta() {
+        return idConsulta;
     }
 
-    public void setConsultaId(Consulta consultaId) {
-        this.consultaId = consultaId;
-    }
+    public void setIdConsulta(Consulta idConsulta) {
+        this.idConsulta = idConsulta;
+    }   
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idexame != null ? idexame.hashCode() : 0);
+        int hash = 3;
+        hash = 17 * hash + (int) (this.idexame ^ (this.idexame >>> 32));
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Exame)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Exame other = (Exame) object;
-        if ((this.idexame == null && other.idexame != null) || (this.idexame != null && !this.idexame.equals(other.idexame))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Exame other = (Exame) obj;
+        return this.idexame == other.idexame;
     }
 
-    @Override
-    public String toString() {
-        return "br.edu.ifsp.pep.modelo.Exame[ idexame=" + idexame + " ]";
-    }
     
 }

@@ -10,8 +10,7 @@
     <class>br.edu.ifsp.pep.modelo.PlanoMedico</class>
     <class>br.edu.ifsp.pep.modelo.Remedio</class>
     <class>br.edu.ifsp.pep.modelo.Secretariado</class>
-    <class>br.edu.ifsp.pep.modelo.Consultamedica</class>
-    <class>br.edu.ifsp.pep.modelo.Secreatriado</class>
+    <class>br.edu.ifsp.pep.modelo.Pessoa</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projeto_integrado?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC&amp;serverTimezone=America/Sao_Paulo"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
