@@ -11,9 +11,12 @@ public class RemedioDAO extends AbstractDAO<Remedio>{
         return getEntityManager().find(Remedio.class, id);
     }
     
-    public List<Remedio> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("Remedio.findAll", Remedio.class)
-                .getResultList();
+    public List<Remedio> buscarTdsRemedios(){
+        TypedQuery<Remedio> query = getEntityManager()
+                .createQuery("SELECT r FROM remedio r",
+                        Remedio.class);
+        
+        return query.getResultList();
     }
+    
 }

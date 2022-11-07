@@ -11,10 +11,12 @@ public class MedicoDAO extends AbstractDAO<Medico>{
         return getEntityManager().find(Medico.class, cpf);
     }
     
-    public List<Medico> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("Medico.findAll", Medico.class)
-                .getResultList();
+    public List<Medico> buscarTdsMedicos(){
+        TypedQuery<Medico> query = getEntityManager()
+                .createQuery("SELECT m FROM medico m",
+                        Medico.class);
+        
+        return query.getResultList();
     }
     
 }

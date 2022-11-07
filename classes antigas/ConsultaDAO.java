@@ -11,10 +11,12 @@ public class ConsultaDAO extends AbstractDAO<Consulta>{
         return getEntityManager().find(Consulta.class, id);
     }
     
-    public List<Consulta> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("Consulta.findAll", Consulta.class)
-                .getResultList();
+    public List<Consulta> buscarTdsConsultas(){
+        TypedQuery<Consulta> query = getEntityManager()
+                .createQuery("SELECT co FROM consulta co",
+                        Consulta.class);
+        
+        return query.getResultList();
     }
     
 }

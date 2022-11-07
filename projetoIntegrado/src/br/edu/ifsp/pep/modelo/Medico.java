@@ -20,33 +20,37 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m"),
     @NamedQuery(name = "Medico.findByCpf", query = "SELECT m FROM Medico m WHERE m.cpf = :cpf"),
+    @NamedQuery(name = "Medico.findByNumeroRegistro", query = "SELECT m FROM Medico m WHERE m.numeroRegistro = :numeroRegistro"),
+    @NamedQuery(name = "Medico.findByEspecialidade", query = "SELECT m FROM Medico m WHERE m.especialidade = :especialidade"),
+    @NamedQuery(name = "Medico.findByLoginNome", query = "SELECT m FROM Medico m WHERE m.loginNome = :loginNome"),
+    @NamedQuery(name = "Medico.findByLoginSenha", query = "SELECT m FROM Medico m WHERE m.loginSenha = :loginSenha")
 })
-public class Medico extends Pessoa {
+public class Medico extends Pessoa{
+
+    @Column(name = "numero_registro", length = 20, nullable = false)
+    private String numeroRegistro;
    
-    @Column(name = "crm", length = 20, nullable = false)
-    private String crm;
-    
     @Column(name = "especialidade", length = 45, nullable = false)
     private String especialidade;
-    
+
     @Column(name = "login_nome", length = 45, nullable = false)
     private String loginNome;
-   
-    @Column(name = "login_senha", length = 45, nullable = false)
-    private String loginSenha;    
 
+    @Column(name = "login_senha", length = 45, nullable = false)
+    private String loginSenha;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicoCpf")
     private Collection<Consulta> consultaCollection;
 
     public Medico() {
     }
 
-    public String getCrm() {
-        return crm;
+    public String getNumeroRegistro() {
+        return numeroRegistro;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
+    public void setNumeroRegistro(String numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 
     public String getEspecialidade() {

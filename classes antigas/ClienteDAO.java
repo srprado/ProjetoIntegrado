@@ -11,10 +11,12 @@ public class ClienteDAO extends AbstractDAO<Cliente>{
         return getEntityManager().find(Cliente.class, cpf);
     }
     
-    public List<Cliente> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("Cliente.findAll", Cliente.class)
-                .getResultList();
+    public List<Cliente> buscarTdsClientes(){
+        TypedQuery<Cliente> query = getEntityManager()
+                .createQuery("SELECT c FROM cliente c",
+                        Cliente.class);
+        
+        return query.getResultList();
     }
     
 }

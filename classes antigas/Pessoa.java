@@ -28,7 +28,7 @@ public abstract class Pessoa implements Serializable{
     private String nome;
   
     @Column(name = "data_nascimento", nullable = false)
-     @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
     
     @Column(name = "telefone", length = 15, nullable = false)
@@ -37,7 +37,7 @@ public abstract class Pessoa implements Serializable{
     @Column(name = "email", length = 45, nullable = false)
     private String email;
     
-    @Column(name = "endereco", length = 150, nullable = false)
+    @Column(name = "endereco", length = 60, nullable = false)
     private String endereco;
     
     @Column(name = "status", nullable = false)

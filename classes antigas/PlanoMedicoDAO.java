@@ -3,6 +3,7 @@ package br.edu.ifsp.pep.dao;
 
 import br.edu.ifsp.pep.modelo.PlanoMedico;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 public class PlanoMedicoDAO extends AbstractDAO<PlanoMedico>{
@@ -11,10 +12,12 @@ public class PlanoMedicoDAO extends AbstractDAO<PlanoMedico>{
         return getEntityManager().find(PlanoMedico.class, id);
     }
     
-    public List<PlanoMedico> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("PlanoMedico.findAll", PlanoMedico.class)
-                .getResultList();
+    public List<PlanoMedico> buscarTdsPlanos(){
+        TypedQuery<PlanoMedico> query = getEntityManager()
+                .createQuery("SELECT pl FROM plano_medico pl",
+                        PlanoMedico.class);
+        
+        return query.getResultList();
     }
     
     

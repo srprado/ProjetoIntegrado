@@ -23,55 +23,62 @@ import javax.persistence.TemporalType;
 @Table(name = "consulta")
 @NamedQueries({
     @NamedQuery(name = "Consulta.findAll", query = "SELECT c FROM Consulta c"),
-    @NamedQuery(name = "Consulta.findByIdconsulta", query = "SELECT c FROM Consulta c WHERE c.idconsulta = :idconsulta"),
     @NamedQuery(name = "Consulta.findByDia", query = "SELECT c FROM Consulta c WHERE c.dia = :dia"),
     @NamedQuery(name = "Consulta.findByHorario", query = "SELECT c FROM Consulta c WHERE c.horario = :horario"),
     @NamedQuery(name = "Consulta.findByStatus", query = "SELECT c FROM Consulta c WHERE c.status = :status")})
 public class Consulta implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idconsulta")
-    private Integer idconsulta;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(name = "idConsulta")
+    private long idConsulta;
+    
     @Column(name = "dia", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dia;
-
+    
     @Column(name = "horario", nullable = false)
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Date horario;
     
-    @Column(name = "tipo", length = 45, nullable = false)
-    private String tipo;
-
     @Column(name = "status", nullable = false)
     private boolean status;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Idconsulta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConsulta")
+    private Collection<Remedio> remedioCollection;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConsulta")
     private Collection<Exame> exameCollection;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Idconsulta")
-    private Collection<Receita> receitaCollection;
-    
     @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Cliente clienteCpf;
     
     @JoinColumn(name = "medico_cpf", referencedColumnName = "cpf", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Medico medicoCpf;
 
     public Consulta() {
     }
 
-    public Integer getIdconsulta() {
-        return idconsulta;
+    public Consulta(long idConsulta) {
+        this.idConsulta = idConsulta;
     }
 
-    public void setIdconsulta(Integer idconsulta) {
-        this.idconsulta = idconsulta;
+    public Consulta(long idConsulta, Date dia, Date horario, boolean status) {
+        this.idConsulta = idConsulta;
+        this.dia = dia;
+        this.horario = horario;
+        this.status = status;
     }
+
+    public long getIdConsulta() {
+        return idConsulta;
+    }
+
+    public void setIdConsulta(long idConsulta) {
+        this.idConsulta = idConsulta;
+    }     
 
     public Date getDia() {
         return dia;
@@ -89,20 +96,20 @@ public class Consulta implements Serializable {
         this.horario = horario;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }   
-
     public boolean getStatus() {
         return status;
     }
-    
+
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Collection<Remedio> getRemedioCollection() {
+        return remedioCollection;
+    }
+
+    public void setRemedioCollection(Collection<Remedio> remedioCollection) {
+        this.remedioCollection = remedioCollection;
     }
 
     public Collection<Exame> getExameCollection() {
@@ -113,21 +120,13 @@ public class Consulta implements Serializable {
         this.exameCollection = exameCollection;
     }
 
-    public Collection<Receita> getReceitaCollection() {
-        return receitaCollection;
-    }
-
-    public void setReceitaCollection(Collection<Receita> receitaCollection) {
-        this.receitaCollection = receitaCollection;
-    }
-
     public Cliente getClienteCpf() {
         return clienteCpf;
     }
 
     public void setClienteCpf(Cliente clienteCpf) {
         this.clienteCpf = clienteCpf;
-    }
+    }   
 
     public Medico getMedicoCpf() {
         return medicoCpf;
@@ -135,31 +134,30 @@ public class Consulta implements Serializable {
 
     public void setMedicoCpf(Medico medicoCpf) {
         this.medicoCpf = medicoCpf;
-    }
+    }      
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idconsulta != null ? idconsulta.hashCode() : 0);
+        int hash = 7;
+        hash = 17 * hash + (int) (this.idConsulta ^ (this.idConsulta >>> 32));
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Consulta)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Consulta other = (Consulta) object;
-        if ((this.idconsulta == null && other.idconsulta != null) || (this.idconsulta != null && !this.idconsulta.equals(other.idconsulta))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Consulta other = (Consulta) obj;
+        return this.idConsulta == other.idConsulta;
     }
 
-    @Override
-    public String toString() {
-        return "br.edu.ifsp.pep.modelo.Consulta[ idconsulta=" + idconsulta + " ]";
-    }
+    
     
 }

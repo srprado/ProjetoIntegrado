@@ -7,12 +7,13 @@
     <class>br.edu.ifsp.pep.modelo.Exame</class>
     <class>br.edu.ifsp.pep.modelo.Medico</class>
     <class>br.edu.ifsp.pep.modelo.Pagamento</class>
+    <class>br.edu.ifsp.pep.modelo.Pessoa</class>
     <class>br.edu.ifsp.pep.modelo.PlanoMedico</class>
+    <class>br.edu.ifsp.pep.modelo.Receita</class>
     <class>br.edu.ifsp.pep.modelo.Remedio</class>
     <class>br.edu.ifsp.pep.modelo.Secretariado</class>
-    <class>br.edu.ifsp.pep.modelo.Pessoa</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projeto_integrado?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC&amp;serverTimezone=America/Sao_Paulo"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projetofinal?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC&amp;serverTimezone=America/Sao_Paulo"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="Sa131200RP"/>

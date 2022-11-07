@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,68 +21,54 @@ import javax.persistence.TemporalType;
 @Table(name = "pagamento")
 @NamedQueries({
     @NamedQuery(name = "Pagamento.findAll", query = "SELECT p FROM Pagamento p"),
-    @NamedQuery(name = "Pagamento.findByIdpagamento", query = "SELECT p FROM Pagamento p WHERE p.idpagamento = :idpagamento"),
-    @NamedQuery(name = "Pagamento.findByDataVencimento", query = "SELECT p FROM Pagamento p WHERE p.dataVencimento = :dataVencimento"),
-    @NamedQuery(name = "Pagamento.findByDataPagamento", query = "SELECT p FROM Pagamento p WHERE p.dataPagamento = :dataPagamento"),
-    @NamedQuery(name = "Pagamento.findByStatus", query = "SELECT p FROM Pagamento p WHERE p.status = :status"),
 })
 public class Pagamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
     @Column(name = "idpagamento")
-    private Integer idpagamento;
-
-    @Column(name = "valor_pago", precision = 8, scale = 2, nullable = false)
-    private BigDecimal valorPago;
+    private long idpagamento;
     
-    @Column(name = "data_vencimento", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "data_vencimento")
+    @Temporal(TemporalType.DATE)    
     private Date dataVencimento;
-    @Column(name = "data_pagamento")
     
+    @Column(name = "data_pagamento")    
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
-
-    @Column(name = "status", nullable = false)
-    private boolean status;
-
-    @Column(name = "motivo_cancelamento", length = 150, nullable = false)
+    
+    @Column(name = "valor_pago", precision = 8, scale = 2, nullable = false )
+    private BigDecimal valorPago;
+    
+    @Column(name = "motivo_cancelamento", length = 60, nullable = false)
     private String motivoCancelamento;
     
-    @JoinColumns({
-        @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf", nullable = false)})
-    @ManyToOne(optional = false)
+    @Column(name = "status", nullable = false)
+    private boolean status;
+    
+    @JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf", nullable = false)
+    @ManyToOne
     private Cliente clienteCpf;
 
     public Pagamento() {
     }
 
-    public Pagamento(Integer idpagamento) {
+    public Pagamento(long idpagamento) {
         this.idpagamento = idpagamento;
     }
 
-    public Pagamento(Integer idpagamento, BigDecimal valorPago, boolean status, String motivoCancelamento) {
+    public Pagamento(long idpagamento, Date dataVencimento, boolean status) {
         this.idpagamento = idpagamento;
-        this.valorPago = valorPago;
+        this.dataVencimento = dataVencimento;
         this.status = status;
-        this.motivoCancelamento = motivoCancelamento;
     }
 
-    public Integer getIdpagamento() {
+    public long getIdpagamento() {
         return idpagamento;
     }
 
-    public void setIdpagamento(Integer idpagamento) {
+    public void setIdpagamento(long idpagamento) {
         this.idpagamento = idpagamento;
-    }
-
-    public BigDecimal getValorPago() {
-        return valorPago;
-    }
-
-    public void setValorPago(BigDecimal valorPago) {
-        this.valorPago = valorPago;
     }
 
     public Date getDataVencimento() {
@@ -102,14 +87,14 @@ public class Pagamento implements Serializable {
         this.dataPagamento = dataPagamento;
     }
 
-    public boolean getStatus() {
-        return status;
+    public BigDecimal getValorPago() {
+        return valorPago;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setValorPago(BigDecimal valorPago) {
+        this.valorPago = valorPago;
     }
-
+    
     public String getMotivoCancelamento() {
         return motivoCancelamento;
     }
@@ -118,11 +103,41 @@ public class Pagamento implements Serializable {
         this.motivoCancelamento = motivoCancelamento;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Cliente getClienteCpf() {
         return clienteCpf;
     }
 
     public void setClienteCpf(Cliente clienteCpf) {
         this.clienteCpf = clienteCpf;
-    }  
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (int) (this.idpagamento ^ (this.idpagamento >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pagamento other = (Pagamento) obj;
+        return this.idpagamento == other.idpagamento;
+    }    
 }

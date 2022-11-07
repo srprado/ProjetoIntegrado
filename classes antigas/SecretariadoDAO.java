@@ -11,9 +11,12 @@ public class SecretariadoDAO extends AbstractDAO<Secretariado>{
         return getEntityManager().find(Secretariado.class, cpf);
     }
     
-    public List<Secretariado> findByAll() {
-        return getEntityManager()
-                .createNamedQuery("Secretariado.findAll", Secretariado.class)
-                .getResultList();
+    public List<Secretariado> buscarTdsSecretarios(){
+        TypedQuery<Secretariado> query = getEntityManager()
+                .createQuery("SELECT s FROM secretariado s",
+                        Secretariado.class);
+        
+        return query.getResultList();
     }
+    
 }

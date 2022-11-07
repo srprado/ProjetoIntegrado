@@ -1,6 +1,8 @@
 
 package br.edu.ifsp.pep.dao;
 
-public class PessoaDAO extends AbstractDAO<Object>{
+import br.edu.ifsp.pep.modelo.Pessoa;
+
+public class PessoaDAO extends AbstractDAO<Pessoa>{
     
 }

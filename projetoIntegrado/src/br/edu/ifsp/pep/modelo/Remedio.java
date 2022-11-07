@@ -2,14 +2,17 @@
 package br.edu.ifsp.pep.modelo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,38 +21,68 @@ import javax.persistence.TemporalType;
 @Table(name = "remedio")
 @NamedQueries({
     @NamedQuery(name = "Remedio.findAll", query = "SELECT r FROM Remedio r"),
-    @NamedQuery(name = "Remedio.findByNome", query = "SELECT r FROM Remedio r WHERE r.remedioPK.nome = :nome"),
-    @NamedQuery(name = "Remedio.findByMiligrama", query = "SELECT r FROM Remedio r WHERE r.remedioPK.miligrama = :miligrama"),
-    @NamedQuery(name = "Remedio.findByFaixaEtaria", query = "SELECT r FROM Remedio r WHERE r.faixaEtaria = :faixaEtaria"),
+    @NamedQuery(name = "Remedio.findByIdremedio", query = "SELECT r FROM Remedio r WHERE r.idremedio = :idremedio"),
+    @NamedQuery(name = "Remedio.findByNome", query = "SELECT r FROM Remedio r WHERE r.nome = :nome"),
 })
 public class Remedio implements Serializable {
 
-    @EmbeddedId
-    protected RemedioPK remedioPK;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idremedio")
+    private Integer idremedio;
+
+    @Column(name = "nome", length = 45, nullable = false)
+    private String nome;
+
+    @Column(name = "miligrama", length = 45, nullable = false)
+    private String miligrama;
+
+    @Column(name = "posologia", length = 45, nullable = false)
+    private String posologia;
+
     @Column(name = "faixa_etaria", length = 45, nullable = false)
     private String faixaEtaria;
-   
+
     @Column(name = "data_vencimento")
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
-  
-    @Column(name = "posologia", length = 45, nullable = false)
-    private String posologia;
     
-    @JoinColumn(name = "consulta_id", referencedColumnName = "idConsulta")
-    @ManyToOne
-    private Consulta idConsulta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Idremedio")
+    private Collection<Receita> receitaCollection;
 
     public Remedio() {
     }
 
-    public RemedioPK getRemedioPK() {
-        return remedioPK;
+    public Integer getIdremedio() {
+        return idremedio;
     }
 
-    public void setRemedioPK(RemedioPK remedioPK) {
-        this.remedioPK = remedioPK;
+    public void setIdremedio(Integer idremedio) {
+        this.idremedio = idremedio;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getMiligrama() {
+        return miligrama;
+    }
+
+    public void setMiligrama(String miligrama) {
+        this.miligrama = miligrama;
+    }
+
+    public String getPosologia() {
+        return posologia;
+    }
+
+    public void setPosologia(String posologia) {
+        this.posologia = posologia;
     }
 
     public String getFaixaEtaria() {
@@ -68,26 +101,18 @@ public class Remedio implements Serializable {
         this.dataVencimento = dataVencimento;
     }
 
-    public String getPosologia() {
-        return posologia;
+    public Collection<Receita> getReceitaCollection() {
+        return receitaCollection;
     }
 
-    public void setPosologia(String posologia) {
-        this.posologia = posologia;
+    public void setReceitaCollection(Collection<Receita> receitaCollection) {
+        this.receitaCollection = receitaCollection;
     }
-
-    public Consulta getIdConsulta() {
-        return idConsulta;
-    }
-
-    public void setIdConsulta(Consulta idConsulta) {
-        this.idConsulta = idConsulta;
-    }    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (remedioPK != null ? remedioPK.hashCode() : 0);
+        hash += (idremedio != null ? idremedio.hashCode() : 0);
         return hash;
     }
 
@@ -98,15 +123,10 @@ public class Remedio implements Serializable {
             return false;
         }
         Remedio other = (Remedio) object;
-        if ((this.remedioPK == null && other.remedioPK != null) || (this.remedioPK != null && !this.remedioPK.equals(other.remedioPK))) {
+        if ((this.idremedio == null && other.idremedio != null) || (this.idremedio != null && !this.idremedio.equals(other.idremedio))) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "br.edu.ifsp.pep.modelo.Remedio[ remedioPK=" + remedioPK + " ]";
-    }
-    
 }
