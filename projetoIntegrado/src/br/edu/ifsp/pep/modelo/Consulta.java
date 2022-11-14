@@ -24,9 +24,12 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Consulta.findAll", query = "SELECT c FROM Consulta c"),
     @NamedQuery(name = "Consulta.findByIdconsulta", query = "SELECT c FROM Consulta c WHERE c.idconsulta = :idconsulta"),
-    @NamedQuery(name = "Consulta.findByDia", query = "SELECT c FROM Consulta c WHERE c.dia = :dia"),
+    @NamedQuery(name = "Consulta.findByDia", query = "SELECT c FROM Consulta c WHERE c.data = :data"),
     @NamedQuery(name = "Consulta.findByHorario", query = "SELECT c FROM Consulta c WHERE c.horario = :horario"),
-    @NamedQuery(name = "Consulta.findByStatus", query = "SELECT c FROM Consulta c WHERE c.status = :status")})
+    @NamedQuery(name = "Consulta.findByDiaeHora", query = "SELECT c FROM Consulta c WHERE c.data = :data AND c.horario = :horario"),
+    @NamedQuery(name = "Consulta.findByStatus", query = "SELECT c FROM Consulta c WHERE c.status = :status"),
+    @NamedQuery(name = "Consulta.findbyCliente", query = "SELECT c FROM Consulta c WHERE c.clienteCpf = :clienteCpf")
+})
 public class Consulta implements Serializable {
 
     @Id
@@ -34,9 +37,9 @@ public class Consulta implements Serializable {
     @Column(name = "idconsulta")
     private Integer idconsulta;
 
-    @Column(name = "dia", nullable = false)
+    @Column(name = "data", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date dia;
+    private Date data;
 
     @Column(name = "horario", nullable = false)
     @Temporal(TemporalType.TIME)
@@ -73,13 +76,13 @@ public class Consulta implements Serializable {
         this.idconsulta = idconsulta;
     }
 
-    public Date getDia() {
-        return dia;
+    public Date getData() {
+        return data;
     }
 
-    public void setDia(Date dia) {
-        this.dia = dia;
-    }
+    public void setData(Date data) {
+        this.data = data;
+    }    
 
     public Date getHorario() {
         return horario;

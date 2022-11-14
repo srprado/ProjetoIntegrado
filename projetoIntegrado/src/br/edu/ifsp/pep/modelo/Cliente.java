@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByCpf", query = "SELECT c FROM Cliente c WHERE c.cpf = :cpf"),
-    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
+    @NamedQuery(name = "Cliente.findByNome", 
+            query = "SELECT c FROM Cliente c WHERE UPPER(c.nome) LIKE UPPER (:nome)"),
     @NamedQuery(name = "Cliente.findByStatus", query = "SELECT c FROM Cliente c WHERE c.status = :status")})
 public class Cliente extends Pessoa{
     
@@ -98,6 +99,11 @@ public class Cliente extends Pessoa{
 
     public void setConsultaCollection(Collection<Consulta> consultaCollection) {
         this.consultaCollection = consultaCollection;
+    }  
+    
+    @Override
+    public String toString() {
+        return nome ;
     }
   
 }

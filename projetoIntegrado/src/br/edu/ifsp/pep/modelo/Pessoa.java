@@ -22,26 +22,26 @@ public abstract class Pessoa implements Serializable{
     
     @Id
     @Column(name = "cpf",length = 20, nullable = false)
-    private String cpf;
+    protected String cpf;
     
     @Column(name = "nome", length = 45, nullable = false)
-    private String nome;
+    protected String nome;
   
     @Column(name = "data_nascimento", nullable = false)
      @Temporal(TemporalType.DATE)
-    private Date dataNascimento;
+    protected Date dataNascimento;
     
     @Column(name = "telefone", length = 15, nullable = false)
-    private String telefone;
+    protected String telefone;
     
     @Column(name = "email", length = 45, nullable = false)
-    private String email;
+    protected String email;
     
     @Column(name = "endereco", length = 150, nullable = false)
-    private String endereco;
+    protected String endereco;
     
     @Column(name = "status", nullable = false)
-    private boolean status; 
+    protected boolean status; 
 
     public Pessoa() {
         
@@ -94,7 +94,10 @@ public abstract class Pessoa implements Serializable{
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-
+    
+    public boolean getStatus() {
+        return status;
+    }
     public boolean isStatus() {
         return status;
     }
@@ -124,6 +127,13 @@ public abstract class Pessoa implements Serializable{
         final Pessoa other = (Pessoa) obj;
         return Objects.equals(this.cpf, other.cpf);
     }
+
+//    @Override
+//    public String toString() {
+//        return "Pessoa{" + "nome=" + nome + '}';
+//    }
+    
+    
     
     
    

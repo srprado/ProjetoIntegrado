@@ -85,4 +85,9 @@ public class Medico extends Pessoa{
         this.consultaCollection = consultaCollection;
     }
     
+    @Override
+    public String toString() {
+        return nome ;
+    }
+    
 }

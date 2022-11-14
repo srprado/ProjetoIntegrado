@@ -43,10 +43,6 @@ public class Remedio implements Serializable {
     @Column(name = "faixa_etaria", length = 45, nullable = false)
     private String faixaEtaria;
 
-    @Column(name = "data_vencimento")
-    @Temporal(TemporalType.DATE)
-    private Date dataVencimento;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "Idremedio")
     private Collection<Receita> receitaCollection;
 
@@ -91,14 +87,6 @@ public class Remedio implements Serializable {
 
     public void setFaixaEtaria(String faixaEtaria) {
         this.faixaEtaria = faixaEtaria;
-    }
-
-    public Date getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(Date dataVencimento) {
-        this.dataVencimento = dataVencimento;
     }
 
     public Collection<Receita> getReceitaCollection() {
