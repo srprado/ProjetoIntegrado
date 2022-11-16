@@ -16,4 +16,11 @@ public class SecretariadoDAO extends AbstractDAO<Secretariado>{
                 .createNamedQuery("Secretariado.findAll", Secretariado.class)
                 .getResultList();
     }
+    
+    public List<Secretariado> findByNome(String nome){
+        return getEntityManager()
+                .createNamedQuery("Secretariado.findByNome", Secretariado.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
 }

@@ -1,108 +1,40 @@
 
 package br.edu.ifsp.pep.visao;
 
-import br.edu.ifsp.pep.dao.ClienteDAO;
-import br.edu.ifsp.pep.dao.PlanoMedicoDAO;
-import br.edu.ifsp.pep.modelo.Cliente;
-import br.edu.ifsp.pep.modelo.PlanoMedico;
+import br.edu.ifsp.pep.dao.SecretariadoDAO;
+import br.edu.ifsp.pep.modelo.Secretariado;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class GerenciamentoCliente extends javax.swing.JDialog {
-    private List<Cliente> clies = new ArrayList<>() ;
-    private List<Cliente> clientes;    
-    private final Cliente cliente = new Cliente();
-    private static ClienteDAO clienteDAO = new ClienteDAO();    
-    private final PlanoMedicoDAO planoDAO = new PlanoMedicoDAO();
-   
+public class GerenciamentoSecretariado extends javax.swing.JDialog {
     
-    public GerenciamentoCliente(java.awt.Frame parent, boolean modal) {
+    private List<Secretariado> secretariados;
+    private SecretariadoDAO secretaDAO = new SecretariadoDAO();
+    private final Secretariado secretariado = new Secretariado();
+
+    public GerenciamentoSecretariado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.cores();
         this.habilitar();
-        this.carregarPlanosMedicos();
     }
-    
-    public void habilitar(){
-        paineis.setEnabledAt(0,true);
-        paineis.setEnabledAt(1,false);
-        paineis.setEnabledAt(2,false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-    }
-    
-    public void cores() {
-        Color corJframe = new Color(249, 253, 253);
-        getContentPane().setBackground(corJframe); 
-        paineis.getParent().setBackground(corJframe);
-        paListar.setBackground(corJframe);
-        paCadastrar.setBackground(corJframe);
-        paAlterar.setBackground(corJframe);
-        
-        Color corTabela = new Color(246, 246, 246);
-        tabela.getParent().setBackground(corTabela);
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(24, 156, 184));
-        headerRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-        for (int i = 0; i < tabela.getModel().getColumnCount(); i++) {
-            tabela.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-        }  
-    }
-    
-    private void atualizarTabela(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        for(Cliente cliente : clientes){
-                modelo.addRow (new Object[] {cliente.getCpf(), cliente.getNome(),
-                cliente.getPlanoMedico().getNome(),cliente.getStatus(),cliente.getTitularCpf()});
-            }          
-    }   
-    
-    private void atualizarTabelaByCPF(Cliente cli) {
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        clies.add(cli);
-        modelo.addRow(new Object[]{cli.getCpf(), cli.getNome(),
-        cli.getPlanoMedico().getNome(), cli.isStatus(), cli.getTitularCpf()});
-              
-   }
-    
-    private void carregarPlanosMedicos(){  
-        
-        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cbPlanoMedico.getModel();
-        modelo.addElement("Planos Médicos...");
-        for (PlanoMedico plano : planoDAO.findByAll()) {
-            modelo.addElement(plano);
-        }
-        
-        DefaultComboBoxModel modeloAlt = (DefaultComboBoxModel) cbPlanoMedicoAlt.getModel();
-        modeloAlt.addElement("Planos Médicos...");
-        for (PlanoMedico plano : planoDAO.findByAll()) {
-            modeloAlt.addElement(plano);
-        }
-    }
-     
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
         lblTitulo = new javax.swing.JLabel();
         paineis = new javax.swing.JTabbedPane();
         paListar = new javax.swing.JPanel();
-        txtPesquisaCliente = new javax.swing.JTextField();
+        txtPesquisaSecretariado = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabelaSecretariado = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
@@ -117,8 +49,6 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         lblRua = new javax.swing.JLabel();
         lblCpf = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblTitular = new javax.swing.JLabel();
-        cbPlanoMedico = new javax.swing.JComboBox<>();
         txtNome = new javax.swing.JTextField();
         txtCPF = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
@@ -127,8 +57,13 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         txtRua = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
-        txtTitular = new javax.swing.JFormattedTextField();
-        btnCadastrarCli = new javax.swing.JButton();
+        btnCadastrarMed = new javax.swing.JButton();
+        lblLoginNome = new javax.swing.JLabel();
+        lblLoginSenha = new javax.swing.JLabel();
+        txtLoginNome = new javax.swing.JTextField();
+        txtLoginSenha = new javax.swing.JTextField();
+        lblFuncao = new javax.swing.JLabel();
+        txtFuncao = new javax.swing.JTextField();
         paAlterar = new javax.swing.JPanel();
         lblNomeAlt = new javax.swing.JLabel();
         txtNomeAlt = new javax.swing.JTextField();
@@ -146,22 +81,25 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         txtNumeroAlt = new javax.swing.JTextField();
         lblBairroAlt = new javax.swing.JLabel();
         txtBairroAlt = new javax.swing.JTextField();
-        cbPlanoMedicoAlt = new javax.swing.JComboBox<>();
-        lblTitularAlt = new javax.swing.JLabel();
-        txtTitularAlt = new javax.swing.JFormattedTextField();
         btnCancelarAlt = new javax.swing.JButton();
         btnSalvarAlt = new javax.swing.JButton();
         lblStatusAlt = new javax.swing.JLabel();
         cbStatusAlt = new javax.swing.JComboBox<>();
-
-        jMenu1.setText("jMenu1");
+        lblLoginNome1 = new javax.swing.JLabel();
+        txtLoginNomeAlt = new javax.swing.JTextField();
+        lblLoginSenha1 = new javax.swing.JLabel();
+        txtLoginSenhaAlt = new javax.swing.JTextField();
+        lblFuncaoAlt = new javax.swing.JLabel();
+        txtFuncaoAlt = new javax.swing.JTextField();
+        lblSalarioAlt = new javax.swing.JLabel();
+        txtSalarioAlt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(24, 156, 184));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Cadastrar Cliente");
+        lblTitulo.setText("Secretariado");
 
         paineis.setForeground(new java.awt.Color(24, 156, 184));
         paineis.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -170,7 +108,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         paListar.setToolTipText("");
         paListar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        txtPesquisaCliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txtPesquisaSecretariado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         btnPesquisar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnPesquisar.setText("Pesquisar");
@@ -180,18 +118,19 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             }
         });
 
-        tabela.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaSecretariado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tabelaSecretariado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF", "Nome", "Plano", "Status", "Titular"
+                "CPF", "Nome", "Função", "Status"
             }
         ));
-        jScrollPane1.setViewportView(tabela);
-        if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jScrollPane1.setViewportView(tabelaSecretariado);
+        if (tabelaSecretariado.getColumnModel().getColumnCount() > 0) {
+            tabelaSecretariado.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tabelaSecretariado.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         btnAlterar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -220,7 +159,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
 
         lblNomePesquisar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lblNomePesquisar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNomePesquisar.setText("Nome do cliente:");
+        lblNomePesquisar.setText("Nome do funcionário:");
 
         javax.swing.GroupLayout paListarLayout = new javax.swing.GroupLayout(paListar);
         paListar.setLayout(paListarLayout);
@@ -229,7 +168,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(paListarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paListarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,11 +177,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paListarLayout.createSequentialGroup()
-                        .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNomePesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisaCliente)
+                        .addComponent(txtPesquisaSecretariado, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paListarLayout.setVerticalGroup(
@@ -250,12 +189,12 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(paListarLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisaSecretariado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,7 +202,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        paineis.addTab("Listar Clientes", paListar);
+        paineis.addTab("Listar Secretariado", paListar);
 
         paCadastrar.setForeground(new java.awt.Color(24, 156, 184));
         paCadastrar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -300,16 +239,6 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         lblEmail.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
 
-        lblTitular.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lblTitular.setText("Titular:");
-
-        cbPlanoMedico.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cbPlanoMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbPlanoMedicoActionPerformed(evt);
-            }
-        });
-
         txtNome.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         try {
@@ -337,19 +266,28 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
 
         txtBairro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        try {
-            txtTitular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        btnCadastrarCli.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCadastrarCli.setText("Cadastrar cliente");
-        btnCadastrarCli.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarMed.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCadastrarMed.setText("Cadastrar secretariado");
+        btnCadastrarMed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarCliActionPerformed(evt);
+                btnCadastrarMedActionPerformed(evt);
             }
         });
+
+        lblLoginNome.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblLoginNome.setText("Login Nome:");
+
+        lblLoginSenha.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblLoginSenha.setText("Login Senha:");
+
+        txtLoginNome.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        txtLoginSenha.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        lblFuncao.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblFuncao.setText("Função:");
+
+        txtFuncao.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout paCadastrarLayout = new javax.swing.GroupLayout(paCadastrar);
         paCadastrar.setLayout(paCadastrarLayout);
@@ -366,40 +304,49 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                         .addComponent(lblTelefone)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtTelefone))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paCadastrarLayout.createSequentialGroup()
+                        .addComponent(btnCadastrarMed, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                        .addGap(359, 359, 359)
+                        .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paCadastrarLayout.createSequentialGroup()
                         .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
-                            .addComponent(lblEmail)
                             .addComponent(lblRua)
-                            .addComponent(lblBairro)
-                            .addComponent(lblTitular))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblBairro))
                         .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paCadastrarLayout.createSequentialGroup()
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                .addComponent(txtCPF))
                             .addGroup(paCadastrarLayout.createSequentialGroup()
-                                .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtRua, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                                    .addComponent(txtBairro))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paCadastrarLayout.createSequentialGroup()
-                                        .addComponent(lblNumero)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNumero))
-                                    .addComponent(cbPlanoMedico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(txtEmail)
-                            .addGroup(paCadastrarLayout.createSequentialGroup()
-                                .addComponent(txtTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paCadastrarLayout.createSequentialGroup()
-                        .addComponent(btnCadastrarCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(359, 359, 359)
-                        .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFuncao)
+                                    .addComponent(lblNumero))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumero)
+                                    .addComponent(txtFuncao)))))
+                    .addGroup(paCadastrarLayout.createSequentialGroup()
+                        .addComponent(lblLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblLoginSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(paCadastrarLayout.createSequentialGroup()
+                        .addComponent(lblEmail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtEmail)))
                 .addContainerGap())
         );
         paCadastrarLayout.setVerticalGroup(
@@ -425,27 +372,28 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbPlanoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(lblLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarCli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrarMed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        btnCancelarCadastro.getAccessibleContext().setAccessibleName("");
-
-        paineis.addTab("CadastrarCliente", paCadastrar);
+        paineis.addTab("Cadastrar Secretariado", paCadastrar);
 
         paAlterar.setForeground(new java.awt.Color(24, 156, 184));
         paAlterar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -501,22 +449,6 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
 
         txtBairroAlt.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        cbPlanoMedicoAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cbPlanoMedicoAlt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbPlanoMedicoAltActionPerformed(evt);
-            }
-        });
-
-        lblTitularAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lblTitularAlt.setText("Titular:");
-
-        try {
-            txtTitularAlt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         btnCancelarAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnCancelarAlt.setText("Cancelar alteração");
         btnCancelarAlt.addActionListener(new java.awt.event.ActionListener() {
@@ -539,6 +471,31 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         cbStatusAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         cbStatusAlt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Defina o status...", "1 - Ativo", "0 - Inativo" }));
 
+        lblLoginNome1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblLoginNome1.setText("Login Nome:");
+
+        txtLoginNomeAlt.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        lblLoginSenha1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblLoginSenha1.setText("Login Senha:");
+
+        txtLoginSenhaAlt.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txtLoginSenhaAlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoginSenhaAltActionPerformed(evt);
+            }
+        });
+
+        lblFuncaoAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblFuncaoAlt.setText("Função:");
+
+        txtFuncaoAlt.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        lblSalarioAlt.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblSalarioAlt.setText("Salário:");
+
+        txtSalarioAlt.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout paAlterarLayout = new javax.swing.GroupLayout(paAlterar);
         paAlterar.setLayout(paAlterarLayout);
         paAlterarLayout.setHorizontalGroup(
@@ -556,40 +513,54 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                         .addComponent(txtTelefoneAlt))
                     .addGroup(paAlterarLayout.createSequentialGroup()
                         .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNomeAlt)
-                            .addComponent(lblEmailAlt)
-                            .addComponent(lblRuaAlt)
-                            .addComponent(lblBairroAlt)
-                            .addComponent(lblTitularAlt))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(paAlterarLayout.createSequentialGroup()
+                                .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNomeAlt)
+                                    .addComponent(lblEmailAlt)
+                                    .addComponent(lblRuaAlt)
+                                    .addComponent(lblBairroAlt))
+                                .addGap(9, 9, 9))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paAlterarLayout.createSequentialGroup()
+                                .addComponent(lblSalarioAlt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paAlterarLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(txtNomeAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpfAlt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPFAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                .addComponent(txtCPFAlt))
                             .addComponent(txtEmailAlt)
-                            .addGroup(paAlterarLayout.createSequentialGroup()
-                                .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtRuaAlt)
-                                        .addComponent(txtBairroAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtTitularAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paAlterarLayout.createSequentialGroup()
+                                .addComponent(txtRuaAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paAlterarLayout.createSequentialGroup()
-                                        .addComponent(lblNumeroAlt)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNumeroAlt))
-                                    .addComponent(cbPlanoMedicoAlt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(paAlterarLayout.createSequentialGroup()
-                                        .addComponent(lblStatusAlt)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbStatusAlt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(lblNumeroAlt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumeroAlt))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paAlterarLayout.createSequentialGroup()
+                                .addComponent(txtBairroAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblFuncaoAlt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFuncaoAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblStatusAlt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(paAlterarLayout.createSequentialGroup()
+                                .addComponent(txtSalarioAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(lblLoginNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLoginNomeAlt)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblLoginSenha1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLoginSenhaAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paAlterarLayout.createSequentialGroup()
                         .addComponent(btnSalvarAlt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(335, 335, 335)
+                        .addGap(369, 369, 369)
                         .addComponent(btnCancelarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -622,18 +593,23 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairroAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBairroAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbPlanoMedicoAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitularAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTitularAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFuncaoAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFuncaoAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSalarioAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSalarioAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginSenhaAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginNomeAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         paineis.addTab("Alterar Informações", paAlterar);
@@ -642,125 +618,64 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paineis)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 877, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        paineis.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        String nome = txtPesquisaCliente.getText();
-//        String cpf = txtPesquisaCliente.getText();
-        
-            if (nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Digite o nome do cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);                
-            } else {
-                this.clientes = clienteDAO.findByNome(nome);
-                this.atualizarTabela();
+    private void atualizarTabelaSecretariado(){
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSecretariado.getModel();
+        modelo.setNumRows(0);
+        if(secretariados.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não há correspondência da pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);       
+        }else{
+            for(Secretariado sec: secretariados){
+                modelo.addRow(new Object[]{sec.getCpf(), sec.getNome(), sec.getFuncao(), sec.getStatus()});
             }
+        }   
+    }
+    
+    public void cores() {
+        Color corJframe = new Color(249, 253, 253);
+        getContentPane().setBackground(corJframe); 
+        paineis.getParent().setBackground(corJframe);
+        paListar.setBackground(corJframe);
+        paCadastrar.setBackground(corJframe);
+        paAlterar.setBackground(corJframe);
         
-
-//        if (cbPesquisa.getSelectedIndex() == 2) {
-//            if (cpf.isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Digite o cpf do cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);
-//
-//            } else {
-//                Cliente cli = new Cliente();
-//                try {
-//                    cli = clienteDAO.findByCpfCliente(txtPesquisaCliente.getText());
-//                    atualizarTabelaByCPF(cli);
-//                } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
-//                    txtPesquisaCliente.setText(" ");
-//
-//                }
-//            }
-//        }
-//        cbPesquisa.setSelectedIndex(0);
-        
-    }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        paineis.setEnabledAt(0,false);
-        paineis.setEnabledAt(1,true);
-        paineis.setEnabledAt(2,false);
-        paineis.setSelectedIndex(1);
-        txtTitular.setEnabled(false);       
-    }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-         
-        int linha = tabela.getSelectedRow();
-        if (linha != -1) {
-            
-            paineis.setEnabledAt(0, false);
-            paineis.setEnabledAt(1, false);
-            paineis.setEnabledAt(2, true);
-            paineis.setSelectedIndex(2);
-            
-            Cliente c = this.clientes.get(linha);
-            txtNomeAlt.setText(c.getNome());
-            txtCPFAlt.setValue(c.getCpf());
-            txtCPFAlt.setEnabled(false);
-            dataNascAlt.setDate(c.getDataNascimento());
-            txtTelefoneAlt.setValue(c.getTelefone());
-            txtEmailAlt.setText(c.getEmail());
-            String endereco = c.getEndereco();
-            String[] textoSeparado = endereco.split(",");
-            txtRuaAlt.setText(textoSeparado[0]);
-            txtNumeroAlt.setText(textoSeparado[1]);
-            txtBairroAlt.setText(textoSeparado[2]);
-            txtTitularAlt.setValue(c.getTitularCpf());
-            txtTitularAlt.setEnabled(false);
-            if(c.getStatus() == true){
-                cbStatusAlt.setSelectedIndex(1);            
-            }else{
-                cbStatusAlt.setSelectedIndex(2);
-            }
-            cbPlanoMedicoAlt.setSelectedItem(c.getPlanoMedico());
-//            System.out.println(Arrays.toString(textoSeparado));            
-            txtNomeAlt.requestFocus();           
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um registro na tabela", "Selecione", JOptionPane.WARNING_MESSAGE);            
-            return;
-        } 
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefoneActionPerformed
-
-    private void cbPlanoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlanoMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbPlanoMedicoActionPerformed
-
-    private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
+        Color corTabela = new Color(246, 246, 246);
+        tabelaSecretariado.getParent().setBackground(corTabela);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(24, 156, 184));
+        headerRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+        for (int i = 0; i < tabelaSecretariado.getModel().getColumnCount(); i++) {
+            tabelaSecretariado.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }  
+    }
+    
+    public void habilitar(){
         paineis.setEnabledAt(0,true);
         paineis.setEnabledAt(1,false);
         paineis.setEnabledAt(2,false);
-        paineis.setSelectedIndex(0);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
-    }//GEN-LAST:event_btnCancelarCadastroActionPerformed
-    
-    private void LimparCampos(){
+    }
+     
+    private void LimparCamposSecretariado(){
         txtNome.setText(" ");
         txtCPF.setValue(" ");        
         dataNasc.setDate(new Date());
@@ -769,10 +684,12 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         txtRua.setText(" ");
         txtNumero.setText(" ");
         txtBairro.setText(" ");
-        cbPlanoMedico.setSelectedIndex(0);
+        txtFuncao.setText(" ");
+        txtLoginNome.setText(" ");
+        txtLoginSenha.setText(" ");
     }
     
-    private void LimparCamposAlterar(){
+    private void LimparCamposAlterarS(){
         txtNomeAlt.setText(" ");
         txtCPFAlt.setValue(" ");        
         dataNascAlt.setDate(new Date());
@@ -781,190 +698,276 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         txtRuaAlt.setText(" ");
         txtNumeroAlt.setText(" ");
         txtBairroAlt.setText(" ");
-        cbPlanoMedicoAlt.setSelectedIndex(0);
-        cbStatusAlt.setSelectedIndex(0);
+        txtFuncaoAlt.setText(" ");
+        txtLoginNomeAlt.setText(" ");
+        txtLoginSenhaAlt.setText(" ");
+        cbStatusAlt.setSelectedIndex(0);        
     }
     
-    private void btnCadastrarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCliActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+        String nome = txtPesquisaSecretariado.getText();
+
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite o nome do funcionário!", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.secretariados = secretaDAO.findByNome(nome);
+            this.atualizarTabelaSecretariado();
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        int linha = tabelaSecretariado.getSelectedRow();
+        if (linha != -1) {
+
+            paineis.setEnabledAt(0, false);
+            paineis.setEnabledAt(1, false);
+            paineis.setEnabledAt(2, true);
+            paineis.setSelectedIndex(2);
+
+            Secretariado s = this.secretariados.get(linha);
+            txtNomeAlt.setText(s.getNome());
+            txtCPFAlt.setValue(s.getCpf());
+            txtCPFAlt.setEnabled(false);
+            dataNascAlt.setDate(s.getDataNascimento());
+            txtTelefoneAlt.setValue(s.getTelefone());
+            txtEmailAlt.setText(s.getEmail());
+            String endereco = s.getEndereco();
+            String[] textoSeparado = endereco.split(",");
+            txtRuaAlt.setText(textoSeparado[0]);
+            txtNumeroAlt.setText(textoSeparado[1]);
+            txtBairroAlt.setText(textoSeparado[2]);
+            txtFuncaoAlt.setText(s.getFuncao());
+            txtLoginNomeAlt.setText(s.getLoginNome());
+            txtLoginSenhaAlt.setText(s.getLoginSenha());
+
+            if(s.getStatus() == true){
+                cbStatusAlt.setSelectedIndex(1);
+            }else{
+                cbStatusAlt.setSelectedIndex(2);
+            }
+            txtNomeAlt.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro na tabela", "Selecione", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        this.secretariados = secretaDAO.findByAll();
+        this.atualizarTabelaSecretariado();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int linha = tabelaSecretariado.getSelectedRow();
+        if (linha != -1) {
+            Secretariado s = this.secretariados.get(linha);
+            if(s.getStatus() == true){
+                int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse registro?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                if(confirmacao == 0){
+                    //verificar se o plano esta pago, se estiver exclui, senão apresentar msg de que tem pendências
+                    try{
+                        secretaDAO.remover(s);
+                        JOptionPane.showMessageDialog(null, "Registro excluído!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null,"Não é possível excluir o registro","Alerta", JOptionPane.WARNING_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!", "Cancelada", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }
+        this.secretariados = secretaDAO.findByAll();
+        this.atualizarTabelaSecretariado();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        paineis.setEnabledAt(0, false);
+        paineis.setEnabledAt(1, true);
+        paineis.setEnabledAt(2, false);
+        paineis.setSelectedIndex(1);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
+        paineis.setEnabledAt(0,true);
+        paineis.setEnabledAt(1,false);
+        paineis.setEnabledAt(2,false);
+        paineis.setSelectedIndex(0);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        LimparCamposSecretariado();
+    }//GEN-LAST:event_btnCancelarCadastroActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void btnCadastrarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMedActionPerformed
         if(txtNome.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o nome do paciente!", "Nome", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o nome do funcionário!", "Nome", JOptionPane.WARNING_MESSAGE);
         }else{
-            cliente.setNome(txtNome.getText());       
+            secretariado.setNome(txtNome.getText());
         }
         if(txtCPF.getValue() == null){
-            JOptionPane.showMessageDialog(null, "Insira o CPF do paciente!", "CPF", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o CPF do funcionário!", "CPF", JOptionPane.WARNING_MESSAGE);
         }else{
-            cliente.setCpf(txtCPF.getText());
-        }        
+            secretariado.setCpf(txtCPF.getText());
+        }
         if (dataNasc.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do paciente!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do funcionário!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                cliente.setDataNascimento(dataNasc.getDate());
+                secretariado.setDataNascimento(dataNasc.getDate());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar a data!", "Erro na data", JOptionPane.ERROR);
             }
         }
         if(txtTelefone.getValue() == null){
-            JOptionPane.showMessageDialog(null, "Insira o número de telefone do paciente!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o número de telefone do funcionário!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
         }else{
-            cliente.setTelefone(txtTelefone.getText());
+            secretariado.setTelefone(txtTelefone.getText());
         }
         if(txtEmail.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o email do paciente!", "Email", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o email do funcionário!", "Email", JOptionPane.WARNING_MESSAGE);
         }else{
-            cliente.setEmail(txtEmail.getText());
+            secretariado.setEmail(txtEmail.getText());
         }
         if(txtRua.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Insira a rua!", "Rua", JOptionPane.WARNING_MESSAGE);
         }else if(txtNumero.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);            
+            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);
         }else if(txtBairro.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);            
+            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
         }else {
             String endereco;
             String rua = txtRua.getText();
             String numero = txtNumero.getText();
             String bairro = txtBairro.getText();
             endereco = rua+", "+numero+", "+bairro;
-            cliente.setEndereco(endereco);      
+            secretariado.setEndereco(endereco);
         }
         
-        DefaultComboBoxModel modelopm = (DefaultComboBoxModel) cbPlanoMedico.getModel();
-        if(cbPlanoMedico.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Selecione um Plano Médico!", "Plano médico", JOptionPane.WARNING_MESSAGE);           
-        }else {
-            try {
-                cliente.setPlanoMedico((PlanoMedico) modelopm.getSelectedItem());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Plano médico não encontrado!", "Erro", JOptionPane.ERROR);
-            }
+        if(txtFuncao.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira a função do funcionário","Função",JOptionPane.WARNING_MESSAGE);
+        }else{
+            secretariado.setFuncao(txtFuncao.getText());
+        }        
+        if(txtLoginNome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o nome de login do funcionário!", "Login_Nome", JOptionPane.WARNING_MESSAGE);
+        }else{
+            secretariado.setLoginNome(txtLoginNome.getText());
         }
-        cliente.setStatus(true);        
+        if(txtLoginSenha.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira a senha de login do funcionário!", "Login_Senha", JOptionPane.WARNING_MESSAGE);
+        }else{
+            secretariado.setLoginSenha(txtLoginSenha.getText());
+        }
+        secretariado.setStatus(true);
         try {
-            clienteDAO.inserir(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            secretaDAO.inserir(secretariado);
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente", "Erro", JOptionPane.ERROR);
-        } 
-        this.LimparCampos();        
-    }//GEN-LAST:event_btnCadastrarCliActionPerformed
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar funcionário", "Erro", JOptionPane.ERROR);
+        }
+        this.LimparCamposSecretariado();
+    }//GEN-LAST:event_btnCadastrarMedActionPerformed
 
     private void txtTelefoneAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneAltActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneAltActionPerformed
 
-    private void cbPlanoMedicoAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlanoMedicoAltActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbPlanoMedicoAltActionPerformed
+    private void btnCancelarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAltActionPerformed
+        paineis.setEnabledAt(0,true);
+        paineis.setEnabledAt(1,false);
+        paineis.setEnabledAt(2,false);
+        paineis.setSelectedIndex(0);
+        LimparCamposAlterarS();
+    }//GEN-LAST:event_btnCancelarAltActionPerformed
 
     private void btnSalvarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAltActionPerformed
         if(txtNomeAlt.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o nome do paciente!", "Nome", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o nome do funcionário !", "Nome", JOptionPane.WARNING_MESSAGE);
         }else{
-            this.cliente.setNome(txtNomeAlt.getText());       
+            this.secretariado.setNome(txtNomeAlt.getText());
         }
         if(txtCPFAlt.getValue() == null){
-            JOptionPane.showMessageDialog(null, "Insira o CPF do paciente!", "CPF", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o CPF do funcionário!", "CPF", JOptionPane.WARNING_MESSAGE);
         }else{
-            this.cliente.setCpf(txtCPFAlt.getText());
-        }        
+            this.secretariado.setCpf(txtCPFAlt.getText());
+        }
         if (dataNascAlt.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do paciente!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do funcionário!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                this.cliente.setDataNascimento(dataNascAlt.getDate());
+                this.secretariado.setDataNascimento(dataNascAlt.getDate());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar a data!", "Erro na data", JOptionPane.ERROR);
             }
         }
         if(txtTelefoneAlt.getValue() == null){
-            JOptionPane.showMessageDialog(null, "Insira o número de telefone do paciente!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o número de telefone do funcionário!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
         }else{
-            this.cliente.setTelefone(txtTelefoneAlt.getText());
+            this.secretariado.setTelefone(txtTelefoneAlt.getText());
         }
         if(txtEmailAlt.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o email do paciente!", "Email", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Insira o email do funcionário!", "Email", JOptionPane.WARNING_MESSAGE);
         }else{
-            this.cliente.setEmail(txtEmailAlt.getText());
+            this.secretariado.setEmail(txtEmailAlt.getText());
         }
         if(txtRuaAlt.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Insira a rua!", "Rua", JOptionPane.WARNING_MESSAGE);
         }else if(txtNumeroAlt.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);            
+            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);
         }else if(txtBairroAlt.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);            
+            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
         }else {
             String endereco;
             String rua = txtRuaAlt.getText();
             String numero = txtNumeroAlt.getText();
             String bairro = txtBairroAlt.getText();
             endereco = rua+", "+numero+", "+bairro;
-            this.cliente.setEndereco(endereco);      
-        }        
-        DefaultComboBoxModel modelopm = (DefaultComboBoxModel) cbPlanoMedicoAlt.getModel();
-        if(cbPlanoMedicoAlt.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Selecione um Plano Médico!", "Plano médico", JOptionPane.WARNING_MESSAGE);           
-        }else {
-            try {
-                this.cliente.setPlanoMedico((PlanoMedico) modelopm.getSelectedItem());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Plano médico não encontrado!", "Erro", JOptionPane.ERROR);
-            }
+            this.secretariado.setEndereco(endereco);
         }
         if (cbStatusAlt.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Defina o status do cliente!", "Status", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Defina o status do funcionário!", "Status", JOptionPane.WARNING_MESSAGE);
         } else if (cbStatusAlt.getSelectedIndex() == 1) {
-            this.cliente.setStatus(true);
+            this.secretariado.setStatus(true);
         } else {
-            this.cliente.setStatus(false);
-        }       
+            this.secretariado.setStatus(false);
+        }
+        if(txtFuncaoAlt.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Insira a função do funcionário","Função", JOptionPane.WARNING_MESSAGE);
+        }else{
+            this.secretariado.setFuncao(txtFuncaoAlt.getText());
+        }
+        if(txtLoginNomeAlt.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Insira o nome de login do funcionário","Nome_Login", JOptionPane.WARNING_MESSAGE);
+        }else{
+            this.secretariado.setLoginNome(txtLoginNomeAlt.getText());
+        }
+        if(txtLoginSenhaAlt.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Insira a senha de login do funcionário","Senha_Login", JOptionPane.WARNING_MESSAGE);
+        }else{
+            this.secretariado.setLoginSenha(txtLoginSenhaAlt.getText());
+        }
         try {
-            clienteDAO.alterar(cliente);
+            secretaDAO.alterar(secretariado);
             JOptionPane.showMessageDialog(null, "informações alteradas", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar informações", "Erro", JOptionPane.ERROR);
-        } 
-        this.LimparCamposAlterar();
- 
+        }
+        this.LimparCamposAlterarS();
+
         paineis.setEnabledAt(0,true);
         paineis.setEnabledAt(1,false);
         paineis.setEnabledAt(2,false);
         paineis.setSelectedIndex(0);
-        this.atualizarTabela();
-        txtPesquisaCliente.setText(" ");
+        this.secretariados = secretaDAO.findByAll();
+        this.atualizarTabelaSecretariado();        
+        txtPesquisaSecretariado.setText(" ");
     }//GEN-LAST:event_btnSalvarAltActionPerformed
 
-    private void btnCancelarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAltActionPerformed
-        paineis.setEnabledAt(0,true);
-        paineis.setEnabledAt(1,false);
-        paineis.setEnabledAt(2,false);
-        this.LimparCamposAlterar();
-        paineis.setSelectedIndex(0);
-        this.atualizarTabela();
-    }//GEN-LAST:event_btnCancelarAltActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int linha = tabela.getSelectedRow();
-        if (linha != -1) {           
-            Cliente c = this.clientes.get(linha);
-            if(c.getStatus() == true){
-                int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse registro?", "Confirmação", JOptionPane.YES_NO_OPTION);
-                if(confirmacao == 0){
-                    //verificar se o plano esta pago, se estiver exclui, senão apresentar msg de que tem pendências
-                    try{
-                    clienteDAO.remover(c);
-                    JOptionPane.showMessageDialog(null, "Registro excluído!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);                    
-                    }catch(Exception e){
-                        JOptionPane.showMessageDialog(null,"Não é possível excluir o registro","Alerta", JOptionPane.WARNING_MESSAGE);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Operação cancelada!", "Cancelada", JOptionPane.INFORMATION_MESSAGE);                   
-                }               
-            }            
-        }
-        this.atualizarTabela();
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    private void txtLoginSenhaAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginSenhaAltActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoginSenhaAltActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -980,21 +983,20 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GerenciamentoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoSecretariado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GerenciamentoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoSecretariado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GerenciamentoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoSecretariado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GerenciamentoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoSecretariado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GerenciamentoCliente dialog = new GerenciamentoCliente(new javax.swing.JFrame(), true);
+                GerenciamentoSecretariado dialog = new GerenciamentoSecretariado(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1009,18 +1011,15 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCadastrarCli;
+    private javax.swing.JButton btnCadastrarMed;
     private javax.swing.JButton btnCancelarAlt;
     private javax.swing.JButton btnCancelarCadastro;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvarAlt;
-    private javax.swing.JComboBox<String> cbPlanoMedico;
-    private javax.swing.JComboBox<String> cbPlanoMedicoAlt;
     private javax.swing.JComboBox<String> cbStatusAlt;
     private com.toedter.calendar.JDateChooser dataNasc;
     private com.toedter.calendar.JDateChooser dataNascAlt;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblBairroAlt;
@@ -1028,6 +1027,12 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lblCpfAlt;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailAlt;
+    private javax.swing.JLabel lblFuncao;
+    private javax.swing.JLabel lblFuncaoAlt;
+    private javax.swing.JLabel lblLoginNome;
+    private javax.swing.JLabel lblLoginNome1;
+    private javax.swing.JLabel lblLoginSenha;
+    private javax.swing.JLabel lblLoginSenha1;
     private javax.swing.JLabel lblNascimento;
     private javax.swing.JLabel lblNascimentoAlt;
     private javax.swing.JLabel lblNome;
@@ -1037,33 +1042,37 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumeroAlt;
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblRuaAlt;
+    private javax.swing.JLabel lblSalarioAlt;
     private javax.swing.JLabel lblStatusAlt;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefoneAlt;
-    private javax.swing.JLabel lblTitular;
-    private javax.swing.JLabel lblTitularAlt;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel paAlterar;
     private javax.swing.JPanel paCadastrar;
     private javax.swing.JPanel paListar;
     private javax.swing.JTabbedPane paineis;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tabelaSecretariado;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtBairroAlt;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtCPFAlt;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmailAlt;
+    private javax.swing.JTextField txtFuncao;
+    private javax.swing.JTextField txtFuncaoAlt;
+    private javax.swing.JTextField txtLoginNome;
+    private javax.swing.JTextField txtLoginNomeAlt;
+    private javax.swing.JTextField txtLoginSenha;
+    private javax.swing.JTextField txtLoginSenhaAlt;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeAlt;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtNumeroAlt;
-    private javax.swing.JTextField txtPesquisaCliente;
+    private javax.swing.JTextField txtPesquisaSecretariado;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtRuaAlt;
+    private javax.swing.JTextField txtSalarioAlt;
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JFormattedTextField txtTelefoneAlt;
-    private javax.swing.JFormattedTextField txtTitular;
-    private javax.swing.JFormattedTextField txtTitularAlt;
     // End of variables declaration//GEN-END:variables
 }

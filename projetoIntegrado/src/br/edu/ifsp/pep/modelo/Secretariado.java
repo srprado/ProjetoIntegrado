@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "secretariado")
 @NamedQueries({
+    @NamedQuery(name = "Secretariado.findByNome", query = "SELECT s FROM Secretariado s WHERE UPPER(s.nome) LIKE UPPER (:nome)"),
     @NamedQuery(name = "Secretariado.findAll", query = "SELECT s FROM Secretariado s"),
     @NamedQuery(name = "Secretariado.findByCpf", query = "SELECT s FROM Secretariado s WHERE s.cpf = :cpf"),
     @NamedQuery(name = "Secretariado.findByStatus", query = "SELECT s FROM Secretariado s WHERE s.status = :status"),

@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 
 public class PlanoMedicoDAO extends AbstractDAO<PlanoMedico>{
     
-    public PlanoMedico findByidPlano(long id){
+    public PlanoMedico findByIdPlano(long id){
         return getEntityManager().find(PlanoMedico.class, id);
     }
     

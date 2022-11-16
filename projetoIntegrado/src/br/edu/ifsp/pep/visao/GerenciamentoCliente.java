@@ -21,8 +21,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private List<Cliente> clientes;    
     private final Cliente cliente = new Cliente();
     private static ClienteDAO clienteDAO = new ClienteDAO();    
-    private final PlanoMedicoDAO planoDAO = new PlanoMedicoDAO();
-   
+    private final PlanoMedicoDAO planoDAO = new PlanoMedicoDAO();   
     
     public GerenciamentoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -58,13 +57,17 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         }  
     }
     
-    private void atualizarTabela(){
+    private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for(Cliente cliente : clientes){
-                modelo.addRow (new Object[] {cliente.getCpf(), cliente.getNome(),
-                cliente.getPlanoMedico().getNome(),cliente.getStatus(),cliente.getTitularCpf()});
-            }          
+        if (clientes.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há correspondência da pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (Cliente cliente : clientes) {
+                modelo.addRow(new Object[]{cliente.getCpf(), cliente.getNome(),
+                    cliente.getPlanoMedico().getNome(), cliente.getStatus(), cliente.getTitularCpf()});
+            }
+        }
     }   
     
     private void atualizarTabelaByCPF(Cliente cli) {
@@ -161,7 +164,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         lblTitulo.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(24, 156, 184));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Cadastrar Cliente");
+        lblTitulo.setText("Clientes");
 
         paineis.setForeground(new java.awt.Color(24, 156, 184));
         paineis.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -229,7 +232,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(paListarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paListarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,11 +241,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paListarLayout.createSequentialGroup()
-                        .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNomePesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisaCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paListarLayout.setVerticalGroup(
@@ -255,7 +258,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                     .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,7 +383,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                             .addGroup(paCadastrarLayout.createSequentialGroup()
                                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtRua, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
@@ -436,7 +439,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrarCli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -445,7 +448,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
 
         btnCancelarCadastro.getAccessibleContext().setAccessibleName("");
 
-        paineis.addTab("CadastrarCliente", paCadastrar);
+        paineis.addTab("Cadastrar Cliente", paCadastrar);
 
         paAlterar.setForeground(new java.awt.Color(24, 156, 184));
         paAlterar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -568,7 +571,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpfAlt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPFAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                .addComponent(txtCPFAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                             .addComponent(txtEmailAlt)
                             .addGroup(paAlterarLayout.createSequentialGroup()
                                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,11 +632,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                     .addComponent(txtTitularAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         paineis.addTab("Alterar Informações", paAlterar);
@@ -642,20 +645,21 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paineis)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(paineis)
+                .addContainerGap())
         );
 
         paineis.getAccessibleContext().setAccessibleName("");
@@ -674,27 +678,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             } else {
                 this.clientes = clienteDAO.findByNome(nome);
                 this.atualizarTabela();
-            }
-        
-
-//        if (cbPesquisa.getSelectedIndex() == 2) {
-//            if (cpf.isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Digite o cpf do cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);
-//
-//            } else {
-//                Cliente cli = new Cliente();
-//                try {
-//                    cli = clienteDAO.findByCpfCliente(txtPesquisaCliente.getText());
-//                    atualizarTabelaByCPF(cli);
-//                } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Informação", JOptionPane.INFORMATION_MESSAGE);
-//                    txtPesquisaCliente.setText(" ");
-//
-//                }
-//            }
-//        }
-//        cbPesquisa.setSelectedIndex(0);
-        
+            }       
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -740,7 +724,10 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um registro na tabela", "Selecione", JOptionPane.WARNING_MESSAGE);            
             return;
-        } 
+        }      
+        
+        this.clientes = clienteDAO.findByAll();
+        this.atualizarTabela();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
@@ -758,6 +745,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         paineis.setSelectedIndex(0);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        LimparCampos();
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
     
     private void LimparCampos(){
@@ -963,6 +951,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 }               
             }            
         }
+        this.clientes = clienteDAO.findByAll();
         this.atualizarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -988,6 +977,12 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GerenciamentoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

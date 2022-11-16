@@ -66,7 +66,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btnGeralClientes = new javax.swing.JButton();
         btnGeralMedicos = new javax.swing.JButton();
         btnGeralSecretariado = new javax.swing.JButton();
-        btnGeralRemedios = new javax.swing.JButton();
+        btnGeralPlanos = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         cbPesquisaC = new javax.swing.JComboBox<>();
         txtPesquisa = new javax.swing.JTextField();
@@ -98,17 +98,17 @@ public class TelaInicial extends javax.swing.JFrame {
         paImagem.setLayout(paImagemLayout);
         paImagemLayout.setHorizontalGroup(
             paImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paImagemLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(paImagemLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
                 .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paImagemLayout.setVerticalGroup(
             paImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paImagemLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(71, 71, 71)
                 .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         btnGeralClientes.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -121,12 +121,22 @@ public class TelaInicial extends javax.swing.JFrame {
 
         btnGeralMedicos.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnGeralMedicos.setText("Gerenciar médicos");
+        btnGeralMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeralMedicosActionPerformed(evt);
+            }
+        });
 
         btnGeralSecretariado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnGeralSecretariado.setText("Gerenciar secretariado");
+        btnGeralSecretariado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeralSecretariadoActionPerformed(evt);
+            }
+        });
 
-        btnGeralRemedios.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnGeralRemedios.setText("Gerenciar remédios");
+        btnGeralPlanos.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnGeralPlanos.setText("Gerenciar planos médicos");
 
         javax.swing.GroupLayout paLateralLayout = new javax.swing.GroupLayout(paLateral);
         paLateral.setLayout(paLateralLayout);
@@ -134,12 +144,12 @@ public class TelaInicial extends javax.swing.JFrame {
             paLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(paImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paLateralLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(paLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGeralClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeralRemedios, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeralMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeralSecretariado, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGeralPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGeralClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGeralMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGeralSecretariado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
         paLateralLayout.setVerticalGroup(
@@ -152,8 +162,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(btnGeralMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btnGeralSecretariado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(btnGeralRemedios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(btnGeralPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -254,7 +264,7 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(paLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -277,7 +287,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                         .addComponent(dataPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(52, 52, 52)
                                         .addComponent(txtHoraPesq))
-                                    .addComponent(txtPesquisa))
+                                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
@@ -416,7 +426,6 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarConsultaActionPerformed
 
     private void btnAgendarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarConsultaActionPerformed
-        
         CadConsultas cadConsultas = new CadConsultas(this,true);
         cadConsultas.setLocationRelativeTo(null);
         cadConsultas.receberInicial("Inicial");
@@ -450,6 +459,18 @@ public class TelaInicial extends javax.swing.JFrame {
         atualizarTabela();
         limparCampos();
     }//GEN-LAST:event_BtnTdsConsultasActionPerformed
+
+    private void btnGeralMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeralMedicosActionPerformed
+        GerenciamentoMedicos medico = new GerenciamentoMedicos(this,true);
+        medico.setLocationRelativeTo(null);
+        medico.setVisible(true);
+    }//GEN-LAST:event_btnGeralMedicosActionPerformed
+
+    private void btnGeralSecretariadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeralSecretariadoActionPerformed
+        GerenciamentoSecretariado secretariado = new GerenciamentoSecretariado(this, true);
+        secretariado.setLocationRelativeTo(null);
+        secretariado.setVisible(true);
+    }//GEN-LAST:event_btnGeralSecretariadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,7 +514,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarConsulta;
     private javax.swing.JButton btnGeralClientes;
     private javax.swing.JButton btnGeralMedicos;
-    private javax.swing.JButton btnGeralRemedios;
+    private javax.swing.JButton btnGeralPlanos;
     private javax.swing.JButton btnGeralSecretariado;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cbPesquisaC;

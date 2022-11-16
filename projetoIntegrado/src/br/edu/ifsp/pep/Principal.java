@@ -19,7 +19,7 @@ public class Principal {
     private static ConsultaDAO consultaDAO = new ConsultaDAO();
     List<Cliente> clientes;
   
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, Exception {
         plano.setNome("Solo");
         plano.setValorMensal(new BigDecimal(150));
         planoDAO.inserir(plano);

@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 
 public class ExameDAO extends AbstractDAO<Exame>{
   
-    public List<Exame> buscarTdsExames() {
+    public List<Exame> findAll() {
         return getEntityManager()
                 .createNamedQuery("Exame.findAll", Exame.class)
                 .getResultList();

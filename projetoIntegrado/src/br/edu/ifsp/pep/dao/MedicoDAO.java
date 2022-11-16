@@ -17,4 +17,11 @@ public class MedicoDAO extends AbstractDAO<Medico>{
                 .getResultList();
     }
     
+    public List<Medico> findByNome(String nome) {
+        return getEntityManager()
+                .createNamedQuery("Medico.findByNome", Medico.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
+    
 }
