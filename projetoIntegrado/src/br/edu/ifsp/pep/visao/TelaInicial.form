@@ -52,16 +52,16 @@
                                   <Component id="lblAjuste1" max="32767" attributes="0"/>
                                   <Component id="BtnTdsConsultas" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="dataPesquisa" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                       <Component id="txtHoraPesq" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="txtPesquisa" min="-2" pref="417" max="-2" attributes="0"/>
+                                  <Component id="txtPesquisa" pref="417" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btnPesquisar" pref="170" max="32767" attributes="0"/>
                                   <Component id="lblAjuste2" max="32767" attributes="0"/>
@@ -229,6 +229,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gerenciar planos m&#xe9;dicos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGeralPlanosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

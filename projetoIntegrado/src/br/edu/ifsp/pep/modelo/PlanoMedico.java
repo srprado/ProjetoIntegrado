@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "PlanoMedico.findAll", query = "SELECT p FROM PlanoMedico p"),
     @NamedQuery(name = "PlanoMedico.findByIdplanoMedico", query = "SELECT p FROM PlanoMedico p WHERE p.idplanoMedico = :idplanoMedico"),
-    @NamedQuery(name = "PlanoMedico.findByNome", query = "SELECT p FROM PlanoMedico p WHERE p.nome = :nome"),
+    @NamedQuery(name = "PlanoMedico.findByNome", query = "SELECT p FROM PlanoMedico p WHERE UPPER (p.nome) LIKE UPPER(:nome)"),
 })
 public class PlanoMedico implements Serializable {
 
@@ -34,6 +34,9 @@ public class PlanoMedico implements Serializable {
 
     @Column(name = "valor_mensal", precision = 8, scale = 2, nullable = false)
     private BigDecimal valorMensal;
+    
+    @Column(name = "quantidade_pessoas", nullable = false)
+    private int qtdPessoas;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planoMedico")
     private Collection<Cliente> clienteCollection;
@@ -65,6 +68,14 @@ public class PlanoMedico implements Serializable {
         this.valorMensal = valorMensal;
     }
 
+    public int getQtdPessoas() {
+        return qtdPessoas;
+    }
+
+    public void setQtdPessoas(int qtdPessoas) {
+        this.qtdPessoas = qtdPessoas;
+    }
+    
     public Collection<Cliente> getClienteCollection() {
         return clienteCollection;
     }

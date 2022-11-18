@@ -22,6 +22,8 @@ public class Principal {
     public static void main(String[] args) throws ParseException, Exception {
         plano.setNome("Solo");
         plano.setValorMensal(new BigDecimal(150));
+        plano.setQtdPessoas(1);
+        
         planoDAO.inserir(plano);
         
 //        Date data = null;

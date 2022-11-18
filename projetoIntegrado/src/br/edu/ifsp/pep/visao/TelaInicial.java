@@ -137,6 +137,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         btnGeralPlanos.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnGeralPlanos.setText("Gerenciar planos médicos");
+        btnGeralPlanos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeralPlanosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paLateralLayout = new javax.swing.GroupLayout(paLateral);
         paLateral.setLayout(paLateralLayout);
@@ -287,7 +292,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                         .addComponent(dataPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(52, 52, 52)
                                         .addComponent(txtHoraPesq))
-                                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
@@ -455,8 +460,13 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void BtnTdsConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTdsConsultasActionPerformed
-        this.consultas  = consultaDAO.findByAllTrue(true);
-        atualizarTabela();
+
+        this.consultas = consultaDAO.findByAllTrue(true);
+        if (consultas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há consultas agendadas", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            atualizarTabela();
+        }
         limparCampos();
     }//GEN-LAST:event_BtnTdsConsultasActionPerformed
 
@@ -471,6 +481,12 @@ public class TelaInicial extends javax.swing.JFrame {
         secretariado.setLocationRelativeTo(null);
         secretariado.setVisible(true);
     }//GEN-LAST:event_btnGeralSecretariadoActionPerformed
+
+    private void btnGeralPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeralPlanosActionPerformed
+       GerencimentoPlanos planosM = new GerencimentoPlanos(this,true);
+       planosM.setLocationRelativeTo(null);
+       planosM.setVisible(true);
+    }//GEN-LAST:event_btnGeralPlanosActionPerformed
 
     /**
      * @param args the command line arguments

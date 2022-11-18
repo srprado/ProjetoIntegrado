@@ -49,7 +49,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
-        lblNomePesquisar = new javax.swing.JLabel();
+        btnNomeMedico = new javax.swing.JButton();
         paCadastrar = new javax.swing.JPanel();
         btnCancelarCadastro = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
@@ -142,7 +142,10 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tabelaMedico);
         if (tabelaMedico.getColumnModel().getColumnCount() > 0) {
+            tabelaMedico.getColumnModel().getColumn(0).setPreferredWidth(100);
             tabelaMedico.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tabelaMedico.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tabelaMedico.getColumnModel().getColumn(3).setPreferredWidth(150);
         }
 
         btnAlterar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -169,9 +172,13 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
             }
         });
 
-        lblNomePesquisar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lblNomePesquisar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNomePesquisar.setText("Nome do médico:");
+        btnNomeMedico.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNomeMedico.setText("Nome do médico");
+        btnNomeMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNomeMedicoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paListarLayout = new javax.swing.GroupLayout(paListar);
         paListar.setLayout(paListarLayout);
@@ -180,7 +187,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
             .addGroup(paListarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paListarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,11 +196,11 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paListarLayout.createSequentialGroup()
-                        .addComponent(lblNomePesquisar)
+                        .addComponent(btnNomeMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paListarLayout.setVerticalGroup(
@@ -203,7 +210,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesquisaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNomeMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
@@ -339,7 +346,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                                .addComponent(txtCPF))
                             .addComponent(txtEmail)
                             .addGroup(paCadastrarLayout.createSequentialGroup()
                                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -571,7 +578,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lblLoginNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtLoginNomeAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                        .addComponent(txtLoginNomeAlt)
                                         .addGap(18, 18, 18)
                                         .addComponent(lblLoginSenha1)
                                         .addGap(5, 5, 5)))
@@ -642,9 +649,10 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(paineis)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -698,6 +706,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         txtCRM.setText(" ");
         txtLoginNome.setText(" ");
         txtLoginSenha.setText(" ");
+        txtPesquisaMedico.setText(" ");
     }
     
     private void LimparCamposAlterarM(){
@@ -721,7 +730,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         DefaultTableModel modelo = (DefaultTableModel) tabelaMedico.getModel();
         modelo.setNumRows(0);
         if(medicos.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Não há correspondência da pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Não há correspondência para a pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
         }else{
             for(Medico medico : medicos){
                 modelo.addRow (new Object[] {medico.getCpf(), medico.getNome(),
@@ -823,6 +832,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         LimparCamposMedico();
+        txtPesquisaMedico.requestFocus();
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
@@ -914,6 +924,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         this.LimparCamposAlterarM();
         paineis.setSelectedIndex(0);
         LimparCamposAlterarM();
+        txtPesquisaMedico.requestFocus();
     }//GEN-LAST:event_btnCancelarAltActionPerformed
 
     private void btnSalvarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAltActionPerformed
@@ -1009,6 +1020,15 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLoginSenhaAltActionPerformed
 
+    private void btnNomeMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNomeMedicoActionPerformed
+        this.medicos = medicoDAO.findByAll();
+        if (medicos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há médicos cadastrados", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            atualizarTabelaMedico();
+        }
+    }//GEN-LAST:event_btnNomeMedicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1058,6 +1078,7 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelarAlt;
     private javax.swing.JButton btnCancelarCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNomeMedico;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvarAlt;
     private javax.swing.JComboBox<String> cbStatusAlt;
@@ -1082,7 +1103,6 @@ public class GerenciamentoMedicos extends javax.swing.JDialog {
     private javax.swing.JLabel lblNascimentoAlt;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeAlt;
-    private javax.swing.JLabel lblNomePesquisar;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblNumeroAlt;
     private javax.swing.JLabel lblRua;

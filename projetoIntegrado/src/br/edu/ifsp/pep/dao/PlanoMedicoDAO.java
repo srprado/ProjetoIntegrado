@@ -17,5 +17,12 @@ public class PlanoMedicoDAO extends AbstractDAO<PlanoMedico>{
                 .getResultList();
     }
     
+    public List<PlanoMedico> findByNome(String nome){
+        return getEntityManager()
+                .createNamedQuery("PlanoMedico.findByNome", PlanoMedico.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
+    
     
 }

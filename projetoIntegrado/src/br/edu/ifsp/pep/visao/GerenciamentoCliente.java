@@ -61,7 +61,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         if (clientes.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Não há correspondência da pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não há correspondência para a pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
         } else {
             for (Cliente cliente : clientes) {
                 modelo.addRow(new Object[]{cliente.getCpf(), cliente.getNome(),
@@ -109,7 +109,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
-        lblNomePesquisar = new javax.swing.JLabel();
+        btnNomeCliente = new javax.swing.JButton();
         paCadastrar = new javax.swing.JPanel();
         btnCancelarCadastro = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
@@ -160,6 +160,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(901, 585));
 
         lblTitulo.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(24, 156, 184));
@@ -221,9 +222,13 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             }
         });
 
-        lblNomePesquisar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lblNomePesquisar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNomePesquisar.setText("Nome do cliente:");
+        btnNomeCliente.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNomeCliente.setText("Nome de cliente:");
+        btnNomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNomeClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paListarLayout = new javax.swing.GroupLayout(paListar);
         paListar.setLayout(paListarLayout);
@@ -232,7 +237,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(paListarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paListarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,9 +246,9 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paListarLayout.createSequentialGroup()
-                        .addComponent(lblNomePesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -255,10 +260,10 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,7 +388,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                                .addComponent(txtCPF))
                             .addGroup(paCadastrarLayout.createSequentialGroup()
                                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtRua, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
@@ -439,10 +444,10 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarCli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(paCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -571,7 +576,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCpfAlt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPFAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                                .addComponent(txtCPFAlt))
                             .addComponent(txtEmailAlt)
                             .addGroup(paAlterarLayout.createSequentialGroup()
                                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -589,7 +594,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                                     .addGroup(paAlterarLayout.createSequentialGroup()
                                         .addComponent(lblStatusAlt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbStatusAlt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(cbStatusAlt, 0, 1, Short.MAX_VALUE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paAlterarLayout.createSequentialGroup()
                         .addComponent(btnSalvarAlt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(335, 335, 335)
@@ -632,7 +637,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                     .addComponent(txtTitularAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbStatusAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(paAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -648,8 +653,8 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE))
+                    .addComponent(paineis)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -723,11 +728,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             txtNomeAlt.requestFocus();           
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um registro na tabela", "Selecione", JOptionPane.WARNING_MESSAGE);            
-            return;
         }      
-        
-        this.clientes = clienteDAO.findByAll();
-        this.atualizarTabela();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
@@ -746,6 +747,8 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         LimparCampos();
+        txtPesquisaCliente.requestFocus();
+        
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
     
     private void LimparCampos(){
@@ -758,6 +761,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         txtNumero.setText(" ");
         txtBairro.setText(" ");
         cbPlanoMedico.setSelectedIndex(0);
+        txtPesquisaCliente.setText(" ");
     }
     
     private void LimparCamposAlterar(){
@@ -918,9 +922,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         paineis.setEnabledAt(0,true);
         paineis.setEnabledAt(1,false);
         paineis.setEnabledAt(2,false);
-        paineis.setSelectedIndex(0);
+        paineis.setSelectedIndex(0);        
+        this.clientes = clienteDAO.findByAll();
         this.atualizarTabela();
         txtPesquisaCliente.setText(" ");
+        txtPesquisaCliente.requestFocus();
     }//GEN-LAST:event_btnSalvarAltActionPerformed
 
     private void btnCancelarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAltActionPerformed
@@ -954,6 +960,15 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         this.clientes = clienteDAO.findByAll();
         this.atualizarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNomeClienteActionPerformed
+        this.clientes = clienteDAO.findByAll();
+        if (clientes.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há clientes cadastrados", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            atualizarTabela();
+        }
+    }//GEN-LAST:event_btnNomeClienteActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1008,6 +1023,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelarAlt;
     private javax.swing.JButton btnCancelarCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNomeCliente;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvarAlt;
     private javax.swing.JComboBox<String> cbPlanoMedico;
@@ -1027,7 +1043,6 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lblNascimentoAlt;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeAlt;
-    private javax.swing.JLabel lblNomePesquisar;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblNumeroAlt;
     private javax.swing.JLabel lblRua;
