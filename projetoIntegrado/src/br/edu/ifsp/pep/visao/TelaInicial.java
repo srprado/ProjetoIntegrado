@@ -433,7 +433,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btnAgendarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarConsultaActionPerformed
         CadConsultas cadConsultas = new CadConsultas(this,true);
         cadConsultas.setLocationRelativeTo(null);
-        cadConsultas.receberInicial("Inicial");
+        cadConsultas.receberValor("Inicial");
         cadConsultas.travartxtTipo();
         cadConsultas.setVisible(true);
     }//GEN-LAST:event_btnAgendarConsultaActionPerformed
@@ -443,7 +443,7 @@ public class TelaInicial extends javax.swing.JFrame {
         CadConsultas cadConsultas = new CadConsultas(this,true);
         //Abrir a tela no meio da tela
         cadConsultas.setLocationRelativeTo(null);
-        cadConsultas.receberRetorno("Retorno");
+        cadConsultas.receberValor("Retorno");
         cadConsultas.travartxtTipo();
         cadConsultas.setVisible(true);
 

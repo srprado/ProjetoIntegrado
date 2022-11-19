@@ -29,6 +29,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         this.cores();
         this.habilitar();
         this.carregarPlanosMedicos();
+        this.carregarPlanosMedicosAlt();
     }
     
     public void habilitar(){
@@ -37,6 +38,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         paineis.setEnabledAt(2,false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        btnListarAssociados.setEnabled(false);
     }
     
     public void cores() {
@@ -63,6 +65,9 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         if (clientes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Não há correspondência para a pesquisa!", "Vazio", JOptionPane.INFORMATION_MESSAGE);
         } else {
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            btnListarAssociados.setEnabled(true);
             for (Cliente cliente : clientes) {
                 modelo.addRow(new Object[]{cliente.getCpf(), cliente.getNome(),
                     cliente.getPlanoMedico().getNome(), cliente.getStatus(), cliente.getTitularCpf()});
@@ -75,22 +80,22 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         modelo.setNumRows(0);
         clies.add(cli);
         modelo.addRow(new Object[]{cli.getCpf(), cli.getNome(),
-        cli.getPlanoMedico().getNome(), cli.isStatus(), cli.getTitularCpf()});
-              
+        cli.getPlanoMedico().getNome(), cli.isStatus(), cli.getTitularCpf()});              
    }
     
-    private void carregarPlanosMedicos(){  
-        
+    private void carregarPlanosMedicos(){         
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cbPlanoMedico.getModel();
         modelo.addElement("Planos Médicos...");
         for (PlanoMedico plano : planoDAO.findByAll()) {
             modelo.addElement(plano);
         }
-        
-        DefaultComboBoxModel modeloAlt = (DefaultComboBoxModel) cbPlanoMedicoAlt.getModel();
-        modeloAlt.addElement("Planos Médicos...");
+    }
+    
+    private void carregarPlanosMedicosAlt(){        
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cbPlanoMedicoAlt.getModel();
+        modelo.addElement("Planos Médicos...");
         for (PlanoMedico plano : planoDAO.findByAll()) {
-            modeloAlt.addElement(plano);
+            modelo.addElement(plano);
         }
     }
      
@@ -110,6 +115,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         btnExcluir = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnNomeCliente = new javax.swing.JButton();
+        btnListarAssociados = new javax.swing.JButton();
         paCadastrar = new javax.swing.JPanel();
         btnCancelarCadastro = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
@@ -230,6 +236,9 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             }
         });
 
+        btnListarAssociados.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnListarAssociados.setText("Listar associados");
+
         javax.swing.GroupLayout paListarLayout = new javax.swing.GroupLayout(paListar);
         paListar.setLayout(paListarLayout);
         paListarLayout.setHorizontalGroup(
@@ -239,12 +248,13 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paListarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnListarAssociados, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paListarLayout.createSequentialGroup()
                         .addComponent(btnNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,13 +271,14 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
                     .addComponent(txtPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(paListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnListarAssociados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -281,6 +292,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         btnCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarCadastroActionPerformed(evt);
+            }
+        });
+        btnCancelarCadastro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarCadastroKeyPressed(evt);
             }
         });
 
@@ -315,6 +331,14 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         cbPlanoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbPlanoMedicoActionPerformed(evt);
+            }
+        });
+        cbPlanoMedico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbPlanoMedicoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cbPlanoMedicoKeyTyped(evt);
             }
         });
 
@@ -650,10 +674,10 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paineis)
+                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 877, Short.MAX_VALUE)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -673,17 +697,14 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
+
         String nome = txtPesquisaCliente.getText();
-//        String cpf = txtPesquisaCliente.getText();
-        
-            if (nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Digite o nome do cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);                
-            } else {
-                this.clientes = clienteDAO.findByNome(nome);
-                this.atualizarTabela();
-            }       
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite o nome do cliente!", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.clientes = clienteDAO.findByNome(nome);
+            this.atualizarTabela();            
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -736,14 +757,14 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
     private void cbPlanoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlanoMedicoActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_cbPlanoMedicoActionPerformed
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
+        paineis.setSelectedIndex(0);
         paineis.setEnabledAt(0,true);
         paineis.setEnabledAt(1,false);
-        paineis.setEnabledAt(2,false);
-        paineis.setSelectedIndex(0);
+        paineis.setEnabledAt(2,false);        
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         LimparCampos();
@@ -829,17 +850,66 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             try {
                 cliente.setPlanoMedico((PlanoMedico) modelopm.getSelectedItem());
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Plano médico não encontrado!", "Erro", JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(null, "Erro ao inserir o plano médico!", "Erro", JOptionPane.ERROR);
             }
         }
-        cliente.setStatus(true);        
+        cliente.setStatus(true);  
         try {
             clienteDAO.inserir(cliente);
             JOptionPane.showMessageDialog(null, "Cliente cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente", "Erro", JOptionPane.ERROR);
-        } 
-        this.LimparCampos();        
+        }         
+     
+        if(cbPlanoMedico.getSelectedIndex() == 1){
+            this.LimparCampos();
+            this.habilitar();
+        }else if (cbPlanoMedico.getSelectedIndex() == 2) {
+            int index = cbPlanoMedico.getSelectedIndex();
+            AssociadoDuo duo = new AssociadoDuo(this, true);
+            duo.receberValorComboBox(index);
+            duo.receberNumeroCPF(cliente);
+            duo.setLocationRelativeTo(null);
+            duo.setVisible(true);
+            this.LimparCampos();
+            this.habilitar();
+        }else if(cbPlanoMedico.getSelectedIndex()==3){
+            int index = cbPlanoMedico.getSelectedIndex();            
+            AssociadoFamilia familia = new AssociadoFamilia(this, true);
+            familia.receberValorComboBox(index);
+            familia.receberNumeroCPF(cliente);
+            familia.setLocationRelativeTo(null);
+            familia.setVisible(true);
+            this.LimparCampos();
+            this.habilitar();
+        
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+              
     }//GEN-LAST:event_btnCadastrarCliActionPerformed
 
     private void txtTelefoneAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneAltActionPerformed
@@ -930,11 +1000,11 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarAltActionPerformed
 
     private void btnCancelarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAltActionPerformed
+        paineis.setSelectedIndex(0);
         paineis.setEnabledAt(0,true);
         paineis.setEnabledAt(1,false);
         paineis.setEnabledAt(2,false);
-        this.LimparCamposAlterar();
-        paineis.setSelectedIndex(0);
+        this.LimparCamposAlterar();        
         this.atualizarTabela();
     }//GEN-LAST:event_btnCancelarAltActionPerformed
 
@@ -969,6 +1039,18 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             atualizarTabela();
         }
     }//GEN-LAST:event_btnNomeClienteActionPerformed
+
+    private void cbPlanoMedicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPlanoMedicoKeyTyped
+
+    }//GEN-LAST:event_cbPlanoMedicoKeyTyped
+
+    private void btnCancelarCadastroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarCadastroKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarCadastroKeyPressed
+
+    private void cbPlanoMedicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPlanoMedicoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPlanoMedicoKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1023,6 +1105,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelarAlt;
     private javax.swing.JButton btnCancelarCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnListarAssociados;
     private javax.swing.JButton btnNomeCliente;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvarAlt;
