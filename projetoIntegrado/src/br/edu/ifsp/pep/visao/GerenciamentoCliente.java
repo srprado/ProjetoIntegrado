@@ -877,7 +877,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             int index = cbPlanoMedico.getSelectedIndex();            
             AssociadoFamilia familia = new AssociadoFamilia(this, true);
             familia.receberValorComboBox(index);
-            familia.receberNumeroCPF(cliente);
+            familia.receberNumeroCPFTitular(cliente);
             familia.setLocationRelativeTo(null);
             familia.setVisible(true);
             this.LimparCampos();
