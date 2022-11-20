@@ -166,7 +166,6 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(901, 585));
 
         lblTitulo.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(24, 156, 184));
@@ -201,7 +200,9 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tabela.getColumnModel().getColumn(1).setPreferredWidth(220);
+            tabela.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tabela.getColumnModel().getColumn(4).setPreferredWidth(200);
         }
 
         btnAlterar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -677,7 +678,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paineis, javax.swing.GroupLayout.PREFERRED_SIZE, 877, Short.MAX_VALUE)
+                    .addComponent(paineis)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -873,6 +874,7 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             duo.setVisible(true);
             this.LimparCampos();
             this.habilitar();
+            this.atualizarTabela();
         }else if(cbPlanoMedico.getSelectedIndex()==3){
             int index = cbPlanoMedico.getSelectedIndex();            
             AssociadoFamilia familia = new AssociadoFamilia(this, true);
@@ -882,34 +884,8 @@ public class GerenciamentoCliente extends javax.swing.JDialog {
             familia.setVisible(true);
             this.LimparCampos();
             this.habilitar();
-        
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-              
+            this.atualizarTabela();        
+        }             
     }//GEN-LAST:event_btnCadastrarCliActionPerformed
 
     private void txtTelefoneAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneAltActionPerformed

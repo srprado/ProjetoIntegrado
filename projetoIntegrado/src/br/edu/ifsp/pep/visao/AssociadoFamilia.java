@@ -6,6 +6,7 @@ import br.edu.ifsp.pep.dao.PlanoMedicoDAO;
 import br.edu.ifsp.pep.modelo.Cliente;
 import br.edu.ifsp.pep.modelo.PlanoMedico;
 import java.awt.Color;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -35,15 +36,36 @@ public class AssociadoFamilia extends javax.swing.JDialog {
     }
     
     public void receberValorComboBox(int x){
-        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cbPlanoMedico1.getModel();
+        DefaultComboBoxModel modelo1 = (DefaultComboBoxModel) cbPlanoMedico1.getModel();
         cbPlanoMedico1.setSelectedIndex(x); 
         cbPlanoMedico1.setEnabled(false);
+        
+        DefaultComboBoxModel modelo2 = (DefaultComboBoxModel) cbPlanoMedico2.getModel();
+        cbPlanoMedico2.setSelectedIndex(x); 
+        cbPlanoMedico2.setEnabled(false);
+        
+        DefaultComboBoxModel modelo3 = (DefaultComboBoxModel) cbPlanoMedico3.getModel();
+        cbPlanoMedico3.setSelectedIndex(x); 
+        cbPlanoMedico3.setEnabled(false);
+        
+        DefaultComboBoxModel modelo4 = (DefaultComboBoxModel) cbPlanoMedico4.getModel();
+        cbPlanoMedico4.setSelectedIndex(x); 
+        cbPlanoMedico4.setEnabled(false);
     }
     
     public void receberNumeroCPFTitular(Cliente titNum){
         this.titular = titNum;
         txtTitular1.setValue(titular.getCpf());
         txtTitular1.setEnabled(false);
+        
+        txtTitular2.setValue(titular.getCpf());
+        txtTitular2.setEnabled(false);
+        
+        txtTitular3.setValue(titular.getCpf());
+        txtTitular3.setEnabled(false);
+        
+        txtTitular4.setValue(titular.getCpf());
+        txtTitular4.setEnabled(false);
     }
     
     public void corespaineis(){
@@ -81,7 +103,53 @@ public class AssociadoFamilia extends javax.swing.JDialog {
             modelo4.addElement(plano4);
         }
     }
-
+    
+    private void LimparCampos(){
+        txtNome1.setText(" ");
+        txtCPFAss1.setValue(" ");        
+        dataNasc1.setDate(new Date());
+        txtTelefone1.setValue(" ");
+        txtEmail1.setText(" ");
+        txtRua1.setText(" ");
+        txtNumero1.setText(" ");
+        txtBairro1.setText(" ");
+        cbPlanoMedico1.setSelectedIndex(0);
+        txtTitular1.setValue(" ");
+        
+        txtNome2.setText(" ");
+        txtCPFAss2.setValue(" ");        
+        dataNasc2.setDate(new Date());
+        txtTelefone2.setValue(" ");
+        txtEmail2.setText(" ");
+        txtRua2.setText(" ");
+        txtNumero2.setText(" ");
+        txtBairro2.setText(" ");
+        cbPlanoMedico2.setSelectedIndex(0);
+        txtTitular2.setValue(" ");
+        
+        txtNome3.setText(" ");
+        txtCPFAss3.setValue(" ");        
+        dataNasc3.setDate(new Date());
+        txtTelefone3.setValue(" ");
+        txtEmail3.setText(" ");
+        txtRua3.setText(" ");
+        txtNumero3.setText(" ");
+        txtBairro3.setText(" ");
+        cbPlanoMedico3.setSelectedIndex(0);
+        txtTitular3.setValue(" ");
+        
+        txtNome4.setText(" ");
+        txtCPFAss4.setValue(" ");        
+        dataNasc4.setDate(new Date());
+        txtTelefone4.setValue(" ");
+        txtEmail4.setText(" ");
+        txtRua4.setText(" ");
+        txtNumero4.setText(" ");
+        txtBairro4.setText(" ");
+        cbPlanoMedico4.setSelectedIndex(0);
+        txtTitular4.setValue(" ");
+    }
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -614,6 +682,11 @@ public class AssociadoFamilia extends javax.swing.JDialog {
 
         btnCadastrarPassar3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnCadastrarPassar3.setText("Cadastrar e próximo");
+        btnCadastrarPassar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarPassar3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cadastrar3Layout = new javax.swing.GroupLayout(cadastrar3);
         cadastrar3.setLayout(cadastrar3Layout);
@@ -784,6 +857,11 @@ public class AssociadoFamilia extends javax.swing.JDialog {
 
         btnCadastrarPassar4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnCadastrarPassar4.setText("Cadastrar e fechar");
+        btnCadastrarPassar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarPassar4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cadastrar4Layout = new javax.swing.GroupLayout(cadastrar4);
         cadastrar4.setLayout(cadastrar4Layout);
@@ -951,17 +1029,17 @@ public class AssociadoFamilia extends javax.swing.JDialog {
         } else if (txtBairro1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
         } else {
-            String endereco;
+            String endereco1;
             String rua = txtRua1.getText();
             String numero = txtNumero1.getText();
             String bairro = txtBairro1.getText();
-            endereco = rua + ", " + numero + ", " + bairro;
-            cliente1.setEndereco(endereco);
+            endereco1 = rua + ", " + numero + ", " + bairro;
+            cliente1.setEndereco(endereco1);
         }
         cliente1.setTitularCpf(titular);
 
-        DefaultComboBoxModel modelopm = (DefaultComboBoxModel) cbPlanoMedico1.getModel();
-        cliente1.setPlanoMedico((PlanoMedico) modelopm.getSelectedItem());
+        DefaultComboBoxModel modelopm1 = (DefaultComboBoxModel) cbPlanoMedico1.getModel();
+        cliente1.setPlanoMedico((PlanoMedico) modelopm1.getSelectedItem());
 
         cliente1.setStatus(true);
         try {
@@ -1047,16 +1125,16 @@ public class AssociadoFamilia extends javax.swing.JDialog {
         }else if(txtBairro2.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
         }else {
-            String endereco;
+            String endereco2;
             String rua = txtRua2.getText();
             String numero = txtNumero2.getText();
             String bairro = txtBairro2.getText();
-            endereco = rua+", "+numero+", "+bairro;
-            cliente2.setEndereco(endereco);
+            endereco2 = rua+", "+numero+", "+bairro;
+            cliente2.setEndereco(endereco2);
         }
         cliente2.setTitularCpf(titular);
-        DefaultComboBoxModel modelopm = (DefaultComboBoxModel) cbPlanoMedico2.getModel();        
-        cliente2.setPlanoMedico((PlanoMedico) modelopm.getSelectedItem());
+        DefaultComboBoxModel modelopm2 = (DefaultComboBoxModel) cbPlanoMedico2.getModel();        
+        cliente2.setPlanoMedico((PlanoMedico) modelopm2.getSelectedItem());
       
         cliente2.setStatus(true);
         try {
@@ -1072,6 +1150,129 @@ public class AssociadoFamilia extends javax.swing.JDialog {
         cadastro1.setEnabledAt(3,false);
         cadastro1.setSelectedIndex(2);        
     }//GEN-LAST:event_btnCadastrarPassar2ActionPerformed
+
+    private void btnCadastrarPassar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPassar3ActionPerformed
+        
+        if(txtNome3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o nome do paciente!", "Nome", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente3.setNome(txtNome3.getText());
+        }
+        if(txtCPFAss3.getValue() == null){
+            JOptionPane.showMessageDialog(null, "Insira o CPF do paciente!", "CPF", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente3.setCpf(txtCPFAss3.getText());
+        }
+        if (dataNasc3.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do paciente!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                cliente3.setDataNascimento(dataNasc3.getDate());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar a data!", "Erro na data", JOptionPane.ERROR);
+            }
+        }
+        if(txtTelefone3.getValue() == null){
+            JOptionPane.showMessageDialog(null, "Insira o número de telefone do paciente!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente3.setTelefone(txtTelefone3.getText());
+        }
+        if(txtEmail3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o email do paciente!", "Email", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente3.setEmail(txtEmail3.getText());
+        }
+        if(txtRua3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira a rua!", "Rua", JOptionPane.WARNING_MESSAGE);
+        }else if(txtNumero3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);
+        }else if(txtBairro3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
+        }else {
+            String endereco3;
+            String rua = txtRua3.getText();
+            String numero = txtNumero3.getText();
+            String bairro = txtBairro3.getText();
+            endereco3 = rua+", "+numero+", "+bairro;
+            cliente3.setEndereco(endereco3);
+        }
+        cliente3.setTitularCpf(titular);
+        DefaultComboBoxModel modelopm3 = (DefaultComboBoxModel) cbPlanoMedico3.getModel();        
+        cliente3.setPlanoMedico((PlanoMedico) modelopm3.getSelectedItem());
+      
+        cliente3.setStatus(true);
+        try {
+            clienteDAO.inserir(cliente3);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente", "Erro", JOptionPane.ERROR);
+        }     
+        cadastro1.setEnabledAt(0,false);
+        cadastro1.setEnabledAt(1,false);
+        cadastro1.setEnabledAt(2,false);
+        cadastro1.setEnabledAt(3,true);
+        cadastro1.setSelectedIndex(3);       
+    }//GEN-LAST:event_btnCadastrarPassar3ActionPerformed
+
+    private void btnCadastrarPassar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPassar4ActionPerformed
+
+        if(txtNome4.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o nome do paciente!", "Nome", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente4.setNome(txtNome4.getText());
+        }
+        if(txtCPFAss4.getValue() == null){
+            JOptionPane.showMessageDialog(null, "Insira o CPF do paciente!", "CPF", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente4.setCpf(txtCPFAss4.getText());
+        }
+        if (dataNasc4.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Insira a data de nascimento do paciente!", "Data de nascimento", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                cliente4.setDataNascimento(dataNasc4.getDate());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar a data!", "Erro na data", JOptionPane.ERROR);
+            }
+        }
+        if(txtTelefone4.getValue() == null){
+            JOptionPane.showMessageDialog(null, "Insira o número de telefone do paciente!", "Número de telefone", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente4.setTelefone(txtTelefone4.getText());
+        }
+        if(txtEmail4.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o email do paciente!", "Email", JOptionPane.WARNING_MESSAGE);
+        }else{
+            cliente4.setEmail(txtEmail4.getText());
+        }
+        if(txtRua4.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira a rua!", "Rua", JOptionPane.WARNING_MESSAGE);
+        }else if(txtNumero4.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o número da casa!", "Número da casa", JOptionPane.WARNING_MESSAGE);
+        }else if(txtBairro4.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira o bairro!", "Bairro", JOptionPane.WARNING_MESSAGE);
+        }else {
+            String endereco4;
+            String rua = txtRua4.getText();
+            String numero = txtNumero4.getText();
+            String bairro = txtBairro4.getText();
+            endereco4 = rua+", "+numero+", "+bairro;
+            cliente4.setEndereco(endereco4);
+        }
+        cliente4.setTitularCpf(titular);
+        DefaultComboBoxModel modelopm4 = (DefaultComboBoxModel) cbPlanoMedico4.getModel();        
+        cliente4.setPlanoMedico((PlanoMedico) modelopm4.getSelectedItem());
+      
+        cliente4.setStatus(true);
+        try {
+            clienteDAO.inserir(cliente4);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente", "Erro", JOptionPane.ERROR);
+        }
+        this.LimparCampos();
+        this.dispose();        
+    }//GEN-LAST:event_btnCadastrarPassar4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

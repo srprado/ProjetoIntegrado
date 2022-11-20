@@ -285,7 +285,9 @@ public class CadConsultas extends javax.swing.JDialog {
         }        
         if (calendario.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Insira a data da consulta!", "Insira a data", JOptionPane.WARNING_MESSAGE);
-        } else {
+        }else if(calendario.getDate().before(new Date())){
+            JOptionPane.showMessageDialog(null, "Não é possível marcar em uma data que já passou!", "Data passada", JOptionPane.WARNING_MESSAGE);        
+        }else {
             try {
                 consulta.setData(calendario.getDate());
             } catch (Exception e) {
