@@ -23,4 +23,18 @@ public class SecretariadoDAO extends AbstractDAO<Secretariado>{
                 .setParameter("nome", "%" + nome + "%")
                 .getResultList();
     }
+    
+    public Secretariado buscaLogin(String login){
+        return getEntityManager()
+                .createNamedQuery("Secretariado.findByLoginNome", Secretariado.class)
+                .setParameter("loginNome", login)
+                .getSingleResult();    
+    }
+    
+    public Secretariado buscaSenha(String senha){
+        return getEntityManager()
+                .createNamedQuery("Secretariado.findByLoginSenha", Secretariado.class)
+                .setParameter("loginSenha", senha)
+                .getSingleResult();    
+    }
 }

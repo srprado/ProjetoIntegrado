@@ -24,4 +24,18 @@ public class MedicoDAO extends AbstractDAO<Medico>{
                 .getResultList();
     }
     
+    public Medico buscaLogin(String login){
+        return getEntityManager()
+                .createNamedQuery("Medico.findByLoginNome", Medico.class)
+                .setParameter("loginNome", login)
+                .getSingleResult();    
+    }
+    
+    public Medico buscaSenha(String senha){
+        return getEntityManager()
+                .createNamedQuery("Medico.findByLoginSenha", Medico.class)
+                .setParameter("loginSenha", senha)
+                .getSingleResult();    
+    }
+    
 }

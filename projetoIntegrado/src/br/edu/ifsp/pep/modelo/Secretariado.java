@@ -21,7 +21,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Secretariado.findByStatus", query = "SELECT s FROM Secretariado s WHERE s.status = :status"),
     @NamedQuery(name = "Secretariado.findByFuncao", query = "SELECT s FROM Secretariado s WHERE s.funcao = :funcao"),
     @NamedQuery(name = "Secretariado.findByLoginNome", query = "SELECT s FROM Secretariado s WHERE s.loginNome = :loginNome"),
-    @NamedQuery(name = "Secretariado.findByLoginSenha", query = "SELECT s FROM Secretariado s WHERE s.loginSenha = :loginSenha")})
+    @NamedQuery(name = "Secretariado.findByLoginSenha", query = "SELECT s FROM Secretariado s WHERE s.loginSenha = :loginSenha")
+})
 public class Secretariado extends Pessoa{
 
     @Column(name = "funcao", length = 45, nullable = false)

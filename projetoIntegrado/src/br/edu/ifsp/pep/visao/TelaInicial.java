@@ -27,7 +27,8 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         this.cores();
         this.consultas = consultaDAO.findByAllTrue(true);
-        this.atualizarTabela();   
+        this.atualizarTabela(); 
+        setExtendedState(MAXIMIZED_BOTH);
     }
     
     private void limparCampos(){
