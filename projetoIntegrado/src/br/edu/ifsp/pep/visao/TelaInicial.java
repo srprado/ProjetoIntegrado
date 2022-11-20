@@ -2,6 +2,7 @@
 package br.edu.ifsp.pep.visao;
 
 import br.edu.ifsp.pep.dao.ConsultaDAO;
+import br.edu.ifsp.pep.modelo.Cliente;
 import br.edu.ifsp.pep.modelo.Consulta;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -29,10 +30,17 @@ public class TelaInicial extends javax.swing.JFrame {
         this.consultas = consultaDAO.findByAllTrue(true);
         this.atualizarTabela(); 
         setExtendedState(MAXIMIZED_BOTH);
+        this.habilitar();
+    }
+    
+    private void habilitar(){
+        txtPesquisaCpfCliente.setEnabled(false);
+        txtHoraPesq.setEnabled(false);
+        dataPesquisa.setEnabled(false);
     }
     
     private void limparCampos(){
-        txtPesquisa.setText(" ");
+        txtPesquisaCpfCliente.setValue(null);
         txtHoraPesq.setValue(" ");
         dataPesquisa.setDate(null);   
     }
@@ -70,7 +78,6 @@ public class TelaInicial extends javax.swing.JFrame {
         btnGeralPlanos = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         cbPesquisaC = new javax.swing.JComboBox<>();
-        txtPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaAgenda = new javax.swing.JTable();
@@ -82,6 +89,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lblAjuste1 = new javax.swing.JLabel();
         lblAjuste2 = new javax.swing.JLabel();
         BtnTdsConsultas = new javax.swing.JButton();
+        txtPesquisaCpfCliente = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HOME");
@@ -180,12 +188,10 @@ public class TelaInicial extends javax.swing.JFrame {
         lblTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         cbPesquisaC.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cbPesquisaC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pesquisar por", "Data", "Data e hora", "Cliente", "Médico" }));
-
-        txtPesquisa.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        cbPesquisaC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pesquisar por", "Somente data", "Data e hora", "CPF Cliente", " " }));
+        cbPesquisaC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
+                cbPesquisaCActionPerformed(evt);
             }
         });
 
@@ -257,12 +263,19 @@ public class TelaInicial extends javax.swing.JFrame {
         txtHoraPesq.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         BtnTdsConsultas.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        BtnTdsConsultas.setText("Consultas");
+        BtnTdsConsultas.setText("Todas as consultas");
         BtnTdsConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnTdsConsultasActionPerformed(evt);
             }
         });
+
+        try {
+            txtPesquisaCpfCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtPesquisaCpfCliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,33 +285,31 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(paLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnAgendarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAgendarRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addComponent(btnAgendarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAgendarRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbPesquisaC, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAjuste1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnTdsConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbPesquisaC, 0, 170, Short.MAX_VALUE)
-                                    .addComponent(lblAjuste1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BtnTdsConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(dataPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(52, 52, 52)
-                                        .addComponent(txtHoraPesq))
-                                    .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(lblAjuste2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap())))
+                                .addComponent(dataPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(52, 52, 52)
+                                .addComponent(txtHoraPesq))
+                            .addComponent(txtPesquisaCpfCliente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(lblAjuste2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,18 +319,16 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbPesquisaC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnTdsConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAjuste1))
+                    .addComponent(cbPesquisaC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisaCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnTdsConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtHoraPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAjuste1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAjuste2)
                 .addGap(18, 18, 18)
@@ -332,21 +341,24 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(13, 13, 13))
         );
 
-        txtPesquisa.getAccessibleContext().setAccessibleName("");
         btnPesquisar.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void atualizarTabela() {        
+    private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaAgenda.getModel();
         modelo.setNumRows(0);
-        for (Consulta consulta : consultas) {
-            modelo.addRow(new Object[]{
-                new SimpleDateFormat("dd/MM/yyyy").format(consulta.getData().getTime()),
-                new SimpleDateFormat("HH:mm").format(consulta.getHorario().getTime()),
-                consulta.getClienteCpf().getNome(), consulta.getMedicoCpf().getNome(),
-                consulta.getStatus()});
+        if (consultas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Sem respostas", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (Consulta consulta : consultas) {
+                modelo.addRow(new Object[]{
+                    new SimpleDateFormat("dd/MM/yyyy").format(consulta.getData().getTime()),
+                    new SimpleDateFormat("HH:mm").format(consulta.getHorario().getTime()),
+                    consulta.getClienteCpf().getNome(), consulta.getMedicoCpf().getNome(),
+                    consulta.getStatus()});
+            }
         }
     }
        
@@ -364,19 +376,19 @@ public class TelaInicial extends javax.swing.JFrame {
                     this.consultas = consultaDAO.findByDay(dataPesquisa.getDate());
                     this.atualizarTabela();                        
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Não há consultas nesse dia", "Informação", JOptionPane.INFORMATION_MESSAGE);                        
+                        JOptionPane.showMessageDialog(null, "Não há consultas neste dia", "Informação", JOptionPane.INFORMATION_MESSAGE);                        
                     }                   
                 }
                 break;
-            case 2:                
+            case 2:    
                 if(dataPesquisa.getDate() == null){
                     JOptionPane.showMessageDialog(null, "Selecione a data para pesquisa", "Atenção", JOptionPane.WARNING_MESSAGE);
                 }else if(txtHoraPesq.getValue()== null){
                     JOptionPane.showMessageDialog(null, "Digite o horário desejado", "Atenção", JOptionPane.WARNING_MESSAGE);
                 }else{
                     try {
-                        Date hora = (Date) txtHoraPesq.getValue(); 
-                        this.consultas = consultaDAO.findByDayandTime(dataPesquisa.getDate(), hora);   
+                        SimpleDateFormat formatoh = new SimpleDateFormat("HH:mm");                         
+                        this.consultas = consultaDAO.findByDayandTime(dataPesquisa.getDate(), formatoh.parse((String) txtHoraPesq.getValue()));   
                         this.atualizarTabela();
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Não há consultas nesse dia e horário", "Informação", JOptionPane.INFORMATION_MESSAGE); 
@@ -385,16 +397,17 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
                 break;
             case 3:
-                if(txtPesquisa.getText().trim().equals("")){
-                    JOptionPane.showMessageDialog(null, "Digite o nome do cliente", "Atenção", JOptionPane.WARNING_MESSAGE);                    
+                if(txtPesquisaCpfCliente.getText().trim().equals("")){
+                    JOptionPane.showMessageDialog(null, "Digite o cpf do cliente", "Atenção", JOptionPane.WARNING_MESSAGE);                    
                 }
                 else{
                     try { 
-                        
-                        this.consultas = consultaDAO.findByNomeCliente(txtPesquisa.getText());
+                        Cliente c = new Cliente();
+                        c.setCpf(txtPesquisaCpfCliente.getText());                        
+                        this.consultas = consultaDAO.findByCPFCliente(c);
                         this.atualizarTabela();
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Não há consultas para esse cliente", "Informação", JOptionPane.INFORMATION_MESSAGE); 
+                        JOptionPane.showMessageDialog(null, "Não há consultas para este cliente", "Informação", JOptionPane.INFORMATION_MESSAGE); 
                     }
                 }
                 break;
@@ -456,10 +469,6 @@ public class TelaInicial extends javax.swing.JFrame {
         cliente.setVisible(true);
     }//GEN-LAST:event_btnGeralClientesActionPerformed
 
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
     private void BtnTdsConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTdsConsultasActionPerformed
 
         this.consultas = consultaDAO.findByAllTrue(true);
@@ -489,9 +498,24 @@ public class TelaInicial extends javax.swing.JFrame {
        planosM.setVisible(true);
     }//GEN-LAST:event_btnGeralPlanosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void cbPesquisaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPesquisaCActionPerformed
+       this.limparCampos();
+       if(cbPesquisaC.getSelectedIndex()==1){
+           dataPesquisa.setEnabled(true);
+           txtHoraPesq.setEnabled(false);
+           txtPesquisaCpfCliente.setEnabled(false);
+       }else if(cbPesquisaC.getSelectedIndex()==2){
+           dataPesquisa.setEnabled(true);
+           txtHoraPesq.setEnabled(true);
+           txtPesquisaCpfCliente.setEnabled(false);
+       }
+       else{
+           dataPesquisa.setEnabled(false);
+           txtHoraPesq.setEnabled(false);
+           txtPesquisaCpfCliente.setEnabled(true);
+       }
+    }//GEN-LAST:event_cbPesquisaCActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -545,6 +569,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel paLateral;
     private javax.swing.JTable tabelaAgenda;
     private javax.swing.JFormattedTextField txtHoraPesq;
-    private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtPesquisaCpfCliente;
     // End of variables declaration//GEN-END:variables
 }

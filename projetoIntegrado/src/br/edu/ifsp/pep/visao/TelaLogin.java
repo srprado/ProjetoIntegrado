@@ -155,7 +155,7 @@ public class TelaLogin extends javax.swing.JDialog {
                 }
 
             } catch (Exception e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null, "Erro ao logar!", "ERRO", JOptionPane.ERROR);
             }
         }
         if (cbFuncionarios.getSelectedIndex() == 2) {
@@ -165,11 +165,17 @@ public class TelaLogin extends javax.swing.JDialog {
 
                 if ((login.equals(loM.getLoginNome())) && (senha.equals(seM.getLoginSenha()))) {
                     JOptionPane.showMessageDialog(null, "Login Efetuado!", "Sucesso", JOptionPane.WARNING_MESSAGE);
+                    
+                    ConsultasMedico consultasm = new ConsultasMedico();
+                    consultasm.receberMedico(seM);
+                    consultasm.setVisible(true);
+                    this.dispose();
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro ao logar!", "ERRO", JOptionPane.ERROR);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null, "Erro ao logar!", "ERRO", JOptionPane.ERROR);
             }
         }
         

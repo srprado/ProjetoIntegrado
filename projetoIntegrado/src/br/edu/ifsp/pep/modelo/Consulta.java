@@ -28,7 +28,14 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Consulta.findByHorario", query = "SELECT c FROM Consulta c WHERE c.horario = :horario"),
     @NamedQuery(name = "Consulta.findByDiaeHora", query = "SELECT c FROM Consulta c WHERE c.data = :data AND c.horario = :horario"),
     @NamedQuery(name = "Consulta.findByStatus", query = "SELECT c FROM Consulta c WHERE c.status = :status"),
-    @NamedQuery(name = "Consulta.findbyCliente", query = "SELECT c FROM Consulta c WHERE c.clienteCpf = :clienteCpf")
+    @NamedQuery(name = "Consulta.findbyCliente", query = "SELECT c FROM Consulta c WHERE c.clienteCpf = :clienteCpf"),
+    @NamedQuery(name = "Consulta.findByDiaeMedico", query = "SELECT c FROM Consulta c WHERE c.data = :data AND c.medicoCpf = :medicoCpf"),
+    @NamedQuery(name = "Consulta.findByDiaHoraeMedico", query = "SELECT c FROM Consulta c WHERE c.data = :data AND c.medicoCpf = :medicoCpf AND c.horario = :horario"),
+    @NamedQuery(name = "Consulta.findbyMedico", query = "SELECT c FROM Consulta c WHERE c.medicoCpf = :medicoCpf"),
+    @NamedQuery(name = "Consulta.findbyCliente", query = "SELECT c FROM Consulta c WHERE c.clienteCpf = :clienteCpf"),
+    @NamedQuery(name = "Consulta.findbyClienteMedico", query = "SELECT c FROM Consulta c WHERE c.clienteCpf = :clienteCpf AND c.medicoCpf = :medicoCpf")
+    
+
 })
 public class Consulta implements Serializable {
 

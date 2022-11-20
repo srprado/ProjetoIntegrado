@@ -26,6 +26,7 @@ public class CadConsultas extends javax.swing.JDialog {
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
     private final ClienteDAO clientesDAO = new ClienteDAO();
     private final MedicoDAO medicosDAO = new MedicoDAO();
+    private static Medico med = new Medico();
     
     private static String retorno = "Retorno";    
     List<Cliente> clientes = new ArrayList<>();
@@ -62,7 +63,7 @@ public class CadConsultas extends javax.swing.JDialog {
     }
     
     private void LimparCampos(){
-        txtPesquisa.setText(" ");
+        txtPesquisa.setValue(null);
         DefaultTableModel modelo = (DefaultTableModel) tabelaPesquisaCli.getModel();
         modelo.setNumRows(0);
         calendario.setDate(new Date());
@@ -273,6 +274,12 @@ public class CadConsultas extends javax.swing.JDialog {
         for (Medico medico : medicosDAO.findByAll()) {
             modelo.addElement(medico);
         }
+    }
+    
+    public void receberMedicoSelecionado(Medico medico){
+        this.med = medico;
+        cbMedico.setSelectedItem(med);   
+        cbMedico.setEnabled(false);
     }
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
